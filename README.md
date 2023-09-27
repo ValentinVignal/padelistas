@@ -1,3 +1,3 @@
 # padelistas
 
-An flutter application to organise padel events
+A flutter application to organize padel events.
