@@ -1,12 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'firebase_options.dart';
+import 'router/router.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  setPathUrlStrategy();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(const MyApp());
 }
 
@@ -16,27 +22,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Padelistas',
       theme: ThemeData(useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
-      home: const Home(),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Padelistas'),
-      ),
-      body: const Center(
-        child: Text('Coming soon...'),
-      ),
+      routerConfig: router,
     );
   }
 }
