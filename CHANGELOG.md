@@ -1,4 +1,4 @@
-## NEXT
+## 0.1.0
 
 - Adds `go_router`'s router.
 - Adds dummy events and users screens.
