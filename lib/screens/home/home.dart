@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padelistas/router/routes.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -9,8 +10,32 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Padelistas'),
       ),
-      body: const Center(
-        child: Text('Coming soon...'),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Coming soon...'),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    const UsersRoute().go(context);
+                  },
+                  child: const Text('Users'),
+                ),
+                const SizedBox(width: 16),
+                OutlinedButton(
+                  onPressed: () {
+                    const EventsRoute().go(context);
+                  },
+                  child: const Text('Events'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
