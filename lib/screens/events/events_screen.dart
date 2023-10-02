@@ -12,7 +12,7 @@ class EventsScreen extends ConsumerWidget {
     final events = ref.watch(eventsProvider).valueOrNull ?? const [];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users'),
+        title: const Text('Events'),
       ),
       body: GridView.builder(
         itemCount: events.length,

@@ -66,21 +66,18 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
 }
 
 /// @nodoc
-abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
-  factory _$$EventImplCopyWith(
-          _$EventImpl value, $Res Function(_$EventImpl) then) =
-      __$$EventImplCopyWithImpl<$Res>;
+abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
+  factory _$$_EventCopyWith(_$_Event value, $Res Function(_$_Event) then) =
+      __$$_EventCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime date, Location location});
 }
 
 /// @nodoc
-class __$$EventImplCopyWithImpl<$Res>
-    extends _$EventCopyWithImpl<$Res, _$EventImpl>
-    implements _$$EventImplCopyWith<$Res> {
-  __$$EventImplCopyWithImpl(
-      _$EventImpl _value, $Res Function(_$EventImpl) _then)
+class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
+    implements _$$_EventCopyWith<$Res> {
+  __$$_EventCopyWithImpl(_$_Event _value, $Res Function(_$_Event) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -89,7 +86,7 @@ class __$$EventImplCopyWithImpl<$Res>
     Object? date = null,
     Object? location = null,
   }) {
-    return _then(_$EventImpl(
+    return _then(_$_Event(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -104,11 +101,11 @@ class __$$EventImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EventImpl extends _Event {
-  const _$EventImpl({required this.date, required this.location}) : super._();
+class _$_Event extends _Event {
+  const _$_Event({required this.date, required this.location}) : super._();
 
-  factory _$EventImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EventImplFromJson(json);
+  factory _$_Event.fromJson(Map<String, dynamic> json) =>
+      _$$_EventFromJson(json);
 
   @override
   final DateTime date;
@@ -124,7 +121,7 @@ class _$EventImpl extends _Event {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EventImpl &&
+            other is _$_Event &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.location, location) ||
                 other.location == location));
@@ -137,12 +134,12 @@ class _$EventImpl extends _Event {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
-      __$$EventImplCopyWithImpl<_$EventImpl>(this, _$identity);
+  _$$_EventCopyWith<_$_Event> get copyWith =>
+      __$$_EventCopyWithImpl<_$_Event>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EventImplToJson(
+    return _$$_EventToJson(
       this,
     );
   }
@@ -151,10 +148,10 @@ class _$EventImpl extends _Event {
 abstract class _Event extends Event {
   const factory _Event(
       {required final DateTime date,
-      required final Location location}) = _$EventImpl;
+      required final Location location}) = _$_Event;
   const _Event._() : super._();
 
-  factory _Event.fromJson(Map<String, dynamic> json) = _$EventImpl.fromJson;
+  factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
   @override
   DateTime get date;
@@ -162,6 +159,6 @@ abstract class _Event extends Event {
   Location get location;
   @override
   @JsonKey(ignore: true)
-  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
+  _$$_EventCopyWith<_$_Event> get copyWith =>
       throw _privateConstructorUsedError;
 }

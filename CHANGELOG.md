@@ -1,6 +1,7 @@
 ## NEXT 
 
-- Add Isar.
+- Adds Isar.
+- Adds theme toggle buttons.
 
 ## 0.1.0
 

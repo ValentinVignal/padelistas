@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padelistas/router/routes.dart';
 
+import '../../widgets/theme_switch.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -9,6 +11,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Padelistas'),
+        actions: const [ThemeSwitch()],
       ),
       body: Center(
         child: Column(
