@@ -1,4 +1,4 @@
-## NEXT
+## 0.2.1 [2023-10-04]
 
 - Fixes the theme toggle buttons on web.
 
