@@ -22,7 +22,7 @@ class ThemeSwitch extends ConsumerWidget {
         if (value != themeMode) {
           final isar = ref.read(isarProvider).valueOrNull;
           if (isar == null) return;
-          setThemeMode(isar, value);
+          setThemeMode(ref: ref, isar: isar, themeMode: value);
         }
       },
     );

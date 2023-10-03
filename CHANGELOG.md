@@ -1,3 +1,7 @@
+## NEXT
+
+- Fixes the theme toggle buttons on web.
+
 ## 0.2.0 [2023-10-02]
 
 - Adds Isar.

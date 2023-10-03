@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
@@ -7,30 +8,53 @@ import '../services/isar_provider.dart';
 
 const _key = 'themeMode';
 
-final _themeModeAsyncProvider = FutureProvider<SimpleSetting?>((ref) async {
-  final isar = await ref.watch(isarProvider.future);
+final _themeModeAsyncProvider = FutureProvider<SimpleSetting?>(
+  (ref) async {
+    final isar = await ref.watch(isarProvider.future);
+    final SimpleSetting? setting;
+    if (!kIsWeb) {
+      setting = await isar.simpleSettings.getAsync(_key);
+      // Watchers are not supported on web yet.
+      final subscription = isar.simpleSettings.watchObjectLazy(_key).listen(
+        (event) {
+          ref.invalidateSelf();
+        },
+      );
+      ref.onDispose(subscription.cancel);
+    } else {
+      setting = isar.simpleSettings
+          .get(_key); // Async methods are not supported on web yet.
+    }
+    return setting;
+  },
+  dependencies: [isarProvider],
+);
 
-  final setting = isar.simpleSettings.get(_key);
-  final subscription =
-      isar.simpleSettings.watchObjectLazy(_key).listen((event) {
-    ref.invalidateSelf();
-  });
-  ref.onDispose(subscription.cancel);
-  return setting;
-});
+final themeModeProvider = Provider<ThemeMode>(
+  (ref) {
+    final value = ref.watch(_themeModeAsyncProvider).valueOrNull?.value;
+    if (value != null) {
+      return ThemeMode.values.byName(value);
+    } else {
+      return ThemeMode.system;
+    }
+  },
+  dependencies: [_themeModeAsyncProvider],
+);
 
-final themeModeProvider = Provider<ThemeMode>((ref) {
-  final value = ref.watch(_themeModeAsyncProvider).valueOrNull?.value;
-  if (value != null) {
-    return ThemeMode.values.byName(value);
-  } else {
-    return ThemeMode.system;
-  }
-});
-
-Future<void> setThemeMode(Isar isar, ThemeMode themeMode) {
-  return isar.writeAsync(
-    (isar) =>
-        isar.simpleSettings.put(SimpleSetting(id: _key, value: themeMode.name)),
+void setThemeMode({
+  required WidgetRef ref, // Because the watchers are not supported on web yet.
+  required Isar isar,
+  required ThemeMode themeMode,
+}) {
+  // Cannot use `Isar.writeAsync` because it is not supported on web yet.
+  isar.write(
+    (isar) => isar.simpleSettings.put(
+      SimpleSetting(id: _key, value: themeMode.name),
+    ),
   );
+  if (kIsWeb) {
+    // The watchers are not supported yet
+    ref.invalidate(_themeModeAsyncProvider);
+  }
 }
