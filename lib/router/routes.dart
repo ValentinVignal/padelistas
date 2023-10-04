@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:padelistas/router/pages/bottom_sheet_page.dart';
+import 'package:padelistas/screens/events/event/event_create_screen.dart';
 import 'package:padelistas/screens/events/events_screen.dart';
 import 'package:padelistas/screens/login/login.dart';
 import 'package:padelistas/screens/sign_up/sign_up.dart';
@@ -15,7 +17,12 @@ part 'routes.g.dart';
     TypedGoRoute<LoginRoute>(path: 'login'),
     TypedGoRoute<SignUpRoute>(path: 'sign-up'),
     TypedGoRoute<UsersRoute>(path: 'users'),
-    TypedGoRoute<EventsRoute>(path: 'events'),
+    TypedGoRoute<EventsRoute>(
+      path: 'events',
+      routes: [
+        TypedGoRoute<EventCreateRoute>(path: 'create'),
+      ],
+    ),
   ],
 )
 class HomeRoute extends GoRouteData {
@@ -42,6 +49,18 @@ class EventsRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const EventsScreen();
+  }
+}
+
+class EventCreateRoute extends GoRouteData {
+  const EventCreateRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return BottomSheetPage(
+      key: state.pageKey,
+      child: const EventCreateScreen(),
+    );
   }
 }
 

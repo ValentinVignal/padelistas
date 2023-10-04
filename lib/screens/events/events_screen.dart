@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:padelistas/router/routes.dart';
 
 import '../../models/event_provider.dart';
 
 class EventsScreen extends ConsumerWidget {
   const EventsScreen({super.key});
+
+  void _createEvent(BuildContext context) {
+    const EventCreateRoute().go(context);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,6 +43,12 @@ class EventsScreen extends ConsumerWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _createEvent(context);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

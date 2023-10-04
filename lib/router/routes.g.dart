@@ -29,6 +29,12 @@ RouteBase get $homeRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'events',
           factory: $EventsRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'create',
+              factory: $EventCreateRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     );
@@ -106,6 +112,24 @@ extension $EventsRouteExtension on EventsRoute {
 
   String get location => GoRouteData.$location(
         '/events',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $EventCreateRouteExtension on EventCreateRoute {
+  static EventCreateRoute _fromState(GoRouterState state) =>
+      const EventCreateRoute();
+
+  String get location => GoRouteData.$location(
+        '/events/create',
       );
 
   void go(BuildContext context) => context.go(location);

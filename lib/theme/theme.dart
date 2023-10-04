@@ -23,5 +23,9 @@ ThemeData buildTheme(Brightness brightness) {
   return ThemeData.from(
     colorScheme: colorScheme,
     useMaterial3: true,
+  ).copyWith(
+    bottomSheetTheme: const BottomSheetThemeData(
+      showDragHandle: true,
+    ),
   );
 }
