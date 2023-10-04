@@ -37,9 +37,9 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
       setState(() {
         date = newDate;
       });
+      if (!mounted) return;
+      await _pickTime(context);
     }
-    if (!mounted) return;
-    await _pickTime(context);
   }
 
   Future<void> _pickTime(BuildContext context) async {

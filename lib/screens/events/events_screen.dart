@@ -24,22 +24,61 @@ class EventsScreen extends ConsumerWidget {
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
         ),
+        padding: const EdgeInsets.all(16),
         itemBuilder: (context, index) {
           final event = events[index];
-          final date = DateFormat.yMd().add_jms().format(event.date);
           return Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Location: ${event.location.name}',
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  'Date: $date',
-                  textAlign: TextAlign.center,
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Chip(
+                    label: Text(event.location.name),
+                  ),
+                  const SizedBox(height: 16),
+                  Flexible(
+                    child: Builder(
+                      builder: (context) {
+                        return RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: [
+                              const WidgetSpan(
+                                child: Icon(Icons.calendar_today),
+                              ),
+                              const TextSpan(text: ' '),
+                              TextSpan(
+                                text: DateFormat.yMMMd().format(event.date),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Flexible(
+                    child: Builder(
+                      builder: (context) {
+                        return RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: [
+                              const WidgetSpan(
+                                child: Icon(Icons.schedule),
+                              ),
+                              const TextSpan(text: ' '),
+                              TextSpan(
+                                text: DateFormat.jms().format(event.date),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },

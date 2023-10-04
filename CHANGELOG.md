@@ -3,6 +3,7 @@
 - Adds placeholder login and sign up screens.
 - Use Firestore to store events.
 - MVP to create events.
+- Better UI for events.
 
 ## 0.2.1 [2023-10-04]
 
