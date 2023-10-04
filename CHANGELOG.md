@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds placeholder login and sign up screens.
+
 ## 0.2.1 [2023-10-04]
 
 - Fixes the theme toggle buttons on web.

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:padelistas/screens/events/events_screen.dart';
+import 'package:padelistas/screens/login/login.dart';
+import 'package:padelistas/screens/sign_up/sign_up.dart';
 
 import '../screens/home/home.dart';
 import '../screens/users/users_screen.dart';
@@ -10,8 +12,10 @@ part 'routes.g.dart';
 @TypedGoRoute<HomeRoute>(
   path: '/',
   routes: [
+    TypedGoRoute<LoginRoute>(path: 'login'),
+    TypedGoRoute<SignUpRoute>(path: 'sign-up'),
     TypedGoRoute<UsersRoute>(path: 'users'),
-    TypedGoRoute<EventsRoute>(path: 'events')
+    TypedGoRoute<EventsRoute>(path: 'events'),
   ],
 )
 class HomeRoute extends GoRouteData {
@@ -38,5 +42,23 @@ class EventsRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const EventsScreen();
+  }
+}
+
+class LoginRoute extends GoRouteData {
+  const LoginRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const LoginScreen();
+  }
+}
+
+class SignUpRoute extends GoRouteData {
+  const SignUpRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SignUpScreen();
   }
 }
