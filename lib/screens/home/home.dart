@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:padelistas/router/routes.dart';
+
+import '../../services/settings/user_notifier.dart';
 
 enum _HomeOptions {
   settings,
 }
 
-class Home extends StatelessWidget {
+class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoggedIn = ref.watch(loggedInUserProvider).isLoggedIn;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Padelistas'),
         actions: [
+          if (!isLoggedIn) ...[
+            OutlinedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Coming soon...'),
+                  ),
+                );
+              },
+              child: const Text('Login'),
+            ),
+            const SizedBox(width: 8),
+          ],
           PopupMenuButton(
             onSelected: (value) {
               switch (value) {
