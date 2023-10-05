@@ -1,3 +1,7 @@
+## NEXT
+
+- Allows firestore writes and reads.
+
 ## 0.4.0 [2023-10-05]
 
 - Adds the settings page.
