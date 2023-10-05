@@ -1,6 +1,8 @@
 ## NEXT
 
 - Adds the settings page.
+- Adds a fake login button.
+- Capitalize the location name.
 
 ## 0.3.0 [2023-10-04]
 

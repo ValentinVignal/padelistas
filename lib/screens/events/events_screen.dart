@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:padelistas/router/routes.dart';
+import 'package:padelistas/utils/string.dart';
 
 import '../../models/event_provider.dart';
 
@@ -22,7 +23,7 @@ class EventsScreen extends ConsumerWidget {
       body: GridView.builder(
         itemCount: events.length,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
+          maxCrossAxisExtent: 250,
         ),
         padding: const EdgeInsets.all(16),
         itemBuilder: (context, index) {
@@ -34,7 +35,7 @@ class EventsScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Chip(
-                    label: Text(event.location.name),
+                    label: Text(event.location.name.camelToTitle),
                   ),
                   const SizedBox(height: 16),
                   Flexible(
