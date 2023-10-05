@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:padelistas/router/routes.dart';
 
-import '../../widgets/theme_switch.dart';
+enum _HomeOptions {
+  settings,
+}
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -11,7 +13,30 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Padelistas'),
-        actions: const [ThemeSwitch()],
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) {
+              switch (value) {
+                case _HomeOptions.settings:
+                  const SettingsRoute().go(context);
+                  break;
+              }
+            },
+            itemBuilder: (context) {
+              return [
+                const PopupMenuItem(
+                  value: _HomeOptions.settings,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.settings,
+                    ),
+                    title: Text('Settings'),
+                  ),
+                ),
+              ];
+            },
+          )
+        ],
       ),
       body: Center(
         child: Column(

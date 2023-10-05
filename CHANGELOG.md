@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds the settings page.
+
 ## 0.3.0 [2023-10-04]
 
 - Adds placeholder login and sign up screens.

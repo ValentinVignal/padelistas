@@ -7,6 +7,7 @@ import 'package:padelistas/screens/login/login.dart';
 import 'package:padelistas/screens/sign_up/sign_up.dart';
 
 import '../screens/home/home.dart';
+import '../screens/settings/settings_screen.dart';
 import '../screens/users/users_screen.dart';
 
 part 'routes.g.dart';
@@ -23,6 +24,7 @@ part 'routes.g.dart';
         TypedGoRoute<EventCreateRoute>(path: 'create'),
       ],
     ),
+    TypedGoRoute<SettingsRoute>(path: 'settings'),
   ],
 )
 class HomeRoute extends GoRouteData {
@@ -79,5 +81,14 @@ class SignUpRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SignUpScreen();
+  }
+}
+
+class SettingsRoute extends GoRouteData {
+  const SettingsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SettingsScreen();
   }
 }
