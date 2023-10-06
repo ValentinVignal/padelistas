@@ -1,3 +1,7 @@
+## NEXT
+
+- Login, sign-up and verify email screens.
+
 ## 0.5.0 [2023-10-06]
 
 - Adds anonymous login and logout.

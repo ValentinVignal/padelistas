@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:padelistas/router/routes.dart';
-import 'package:padelistas/services/settings/user_notifier.dart';
-import 'package:padelistas/utils/string.dart';
 
 import '../../models/event_provider.dart';
+import '../../utils/string.dart';
 
 class EventsScreen extends ConsumerWidget {
   const EventsScreen({super.key});
@@ -90,15 +88,7 @@ class EventsScreen extends ConsumerWidget {
 class _FAB extends ConsumerWidget {
   const _FAB();
 
-  void _createEvent(BuildContext context) {
-    if (userNotifier.isLoggedIn) {
-      const EventCreateRoute().go(context);
-    } else {
-      LoginRoute(
-        redirectUrl: Uri.parse(const EventCreateRoute().location),
-      ).push(context);
-    }
-  }
+  void _createEvent(BuildContext context) {}
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

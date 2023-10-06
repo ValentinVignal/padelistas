@@ -14,6 +14,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animated_collection: ^0.0.1
   cloud_firestore: ^4.9.3
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.10.1
@@ -27,6 +28,8 @@ dependencies:
   isar: ^4.0.0-dev.14
   isar_flutter_libs: ^4.0.0-dev.14
   json_annotation: ^4.8.1
+  logging: ^1.2.0
+  meta: ^1.9.1
   path_provider: ^2.1.1
   url_strategy: ^0.2.0
 

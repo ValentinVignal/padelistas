@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:padelistas/router/routes.dart';
 
 import '../../services/settings/user_notifier.dart';
 
@@ -22,9 +21,7 @@ class Home extends ConsumerWidget {
         actions: [
           if (!isLoggedIn) ...[
             OutlinedButton(
-              onPressed: () {
-                const LoginRoute().go(context);
-              },
+              onPressed: () {},
               child: const Text('Login'),
             ),
             const SizedBox(width: 8),
@@ -33,14 +30,11 @@ class Home extends ConsumerWidget {
             onSelected: (value) {
               switch (value) {
                 case _HomeOptions.settings:
-                  const SettingsRoute().go(context);
                   break;
                 case _HomeOptions.logInOrOut:
                   if (isLoggedIn) {
                     FirebaseAuth.instance.signOut();
-                  } else {
-                    const LoginRoute().go(context);
-                  }
+                  } else {}
                   break;
               }
             },
@@ -85,16 +79,12 @@ class Home extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 OutlinedButton(
-                  onPressed: () {
-                    const UsersRoute().go(context);
-                  },
+                  onPressed: () {},
                   child: const Text('Users'),
                 ),
                 const SizedBox(width: 16),
                 OutlinedButton(
-                  onPressed: () {
-                    const EventsRoute().go(context);
-                  },
+                  onPressed: () {},
                   child: const Text('Events'),
                 ),
               ],
