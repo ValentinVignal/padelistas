@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:padelistas/router/routes.dart';
+import 'package:padelistas/services/settings/user_notifier.dart';
 import 'package:padelistas/utils/string.dart';
 
 import '../../models/event_provider.dart';
@@ -9,13 +10,10 @@ import '../../models/event_provider.dart';
 class EventsScreen extends ConsumerWidget {
   const EventsScreen({super.key});
 
-  void _createEvent(BuildContext context) {
-    const EventCreateRoute().go(context);
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final events = ref.watch(eventsProvider).valueOrNull ?? const [];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Events'),
@@ -84,12 +82,31 @@ class EventsScreen extends ConsumerWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _createEvent(context);
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: const _FAB(),
+    );
+  }
+}
+
+class _FAB extends ConsumerWidget {
+  const _FAB();
+
+  void _createEvent(BuildContext context) {
+    if (userNotifier.isLoggedIn) {
+      const EventCreateRoute().go(context);
+    } else {
+      LoginRoute(
+        redirectUrl: Uri.parse(const EventCreateRoute().location),
+      ).push(context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FloatingActionButton(
+      onPressed: () {
+        _createEvent(context);
+      },
+      child: const Icon(Icons.add),
     );
   }
 }

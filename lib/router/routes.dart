@@ -67,16 +67,21 @@ class EventCreateRoute extends GoRouteData {
 }
 
 class LoginRoute extends GoRouteData {
-  const LoginRoute();
+  const LoginRoute({
+    this.redirectUrl,
+  });
+
+  final Uri? redirectUrl;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return BottomSheetPage(
       key: state.pageKey,
-      child: const LoginScreen(),
+      child: LoginScreen(
+        redirect: redirectUrl,
+      ),
     );
   }
-
 }
 
 class SignUpRoute extends GoRouteData {

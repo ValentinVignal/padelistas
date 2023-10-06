@@ -1,6 +1,7 @@
 ## NEXT
 
 - Adds anonymous login and logout.
+- Requires login to create an event.
 
 ## 0.4.1 [2023-10-05]
 
@@ -28,7 +29,7 @@
 - Adds Isar.
 - Adds theme toggle buttons.
 
-## 0.1.0 [2023-09-28
+## 0.1.0 [2023-09-28]
 
 - Adds `go_router`'s router.
 - Adds dummy events and users screens.

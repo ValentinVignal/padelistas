@@ -61,10 +61,16 @@ extension $HomeRouteExtension on HomeRoute {
 }
 
 extension $LoginRouteExtension on LoginRoute {
-  static LoginRoute _fromState(GoRouterState state) => const LoginRoute();
+  static LoginRoute _fromState(GoRouterState state) => LoginRoute(
+        redirectUrl: _$convertMapValue(
+            'redirect-url', state.uri.queryParameters, Uri.parse),
+      );
 
   String get location => GoRouteData.$location(
         '/login',
+        queryParams: {
+          if (redirectUrl != null) 'redirect-url': redirectUrl!.toString(),
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -161,4 +167,13 @@ extension $SettingsRouteExtension on SettingsRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+T? _$convertMapValue<T>(
+  String key,
+  Map<String, String> map,
+  T Function(String) converter,
+) {
+  final value = map[key];
+  return value == null ? null : converter(value);
 }

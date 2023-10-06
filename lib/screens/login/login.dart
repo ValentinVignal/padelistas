@@ -1,8 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({
+    this.redirect,
+    super.key,
+  });
+
+  final Uri? redirect;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +18,11 @@ class LoginScreen extends StatelessWidget {
         onPressed: () async {
           await FirebaseAuth.instance.signInAnonymously();
           if (!context.mounted) return;
-          Navigator.of(context).pop();
+          if (redirect != null) {
+            GoRouter.of(context).pushReplacement(redirect!.toString());
+          } else {
+            Navigator.of(context).pop();
+          }
         },
         child: const Text('Login'),
       ),
