@@ -2,7 +2,7 @@ name: padelistas
 description: A flutter application to organize padel events.
 publish_to: none
 
-version: 0.4.1+6
+version: 0.5.0+7
 
 environment:
   sdk: '>=3.1.2 <4.0.0'

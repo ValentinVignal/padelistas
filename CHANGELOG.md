@@ -1,4 +1,4 @@
-## NEXT
+## 0.5.0 [2023-10-06]
 
 - Adds anonymous login and logout.
 - Requires login to create an event.
