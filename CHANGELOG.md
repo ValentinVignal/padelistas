@@ -1,4 +1,4 @@
-## NEXT
+## 0.6.0 [2023-10-07]
 
 - Login, sign-up and verify email screens.
 
