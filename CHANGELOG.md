@@ -1,6 +1,10 @@
+## NEXT
+
+- Redirects to verify email in the guard.
+
 ## 0.6.0 [2023-10-07]
 
-- Login, sign-up and verify email screens.
+- Adds login, sign-up and verify email screens.
 
 ## 0.5.0 [2023-10-06]
 

@@ -11,7 +11,7 @@ String? guardRedirect([Uri? uri]) {
     }
     if (!user.emailVerified && kVerifyEmail) {
       if (firstSegment != 'verify-email') {
-        throw UnimplementedError();
+        const VerifyEmailRoute().location;
       }
     } else {
       if (firstSegment == 'verify-email') {
