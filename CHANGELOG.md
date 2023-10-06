@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds anonymous login and logout.
+
 ## 0.4.1 [2023-10-05]
 
 - Allows firestore writes and reads.

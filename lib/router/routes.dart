@@ -70,9 +70,13 @@ class LoginRoute extends GoRouteData {
   const LoginRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const LoginScreen();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return BottomSheetPage(
+      key: state.pageKey,
+      child: const LoginScreen(),
+    );
   }
+
 }
 
 class SignUpRoute extends GoRouteData {

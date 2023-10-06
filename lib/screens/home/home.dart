@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:padelistas/router/routes.dart';
@@ -6,6 +7,7 @@ import '../../services/settings/user_notifier.dart';
 
 enum _HomeOptions {
   settings,
+  logInOrOut,
 }
 
 class Home extends ConsumerWidget {
@@ -21,11 +23,7 @@ class Home extends ConsumerWidget {
           if (!isLoggedIn) ...[
             OutlinedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Coming soon...'),
-                  ),
-                );
+                const LoginRoute().go(context);
               },
               child: const Text('Login'),
             ),
@@ -37,10 +35,32 @@ class Home extends ConsumerWidget {
                 case _HomeOptions.settings:
                   const SettingsRoute().go(context);
                   break;
+                case _HomeOptions.logInOrOut:
+                  if (isLoggedIn) {
+                    FirebaseAuth.instance.signOut();
+                  } else {
+                    const LoginRoute().go(context);
+                  }
+                  break;
               }
             },
             itemBuilder: (context) {
               return [
+                PopupMenuItem(
+                  value: _HomeOptions.logInOrOut,
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      final isLoggedIn =
+                          ref.watch(loggedInUserProvider).isLoggedIn;
+                      return ListTile(
+                        leading: Icon(
+                          isLoggedIn ? Icons.logout : Icons.login,
+                        ),
+                        title: Text(isLoggedIn ? 'Logout' : 'Login'),
+                      );
+                    },
+                  ),
+                ),
                 const PopupMenuItem(
                   value: _HomeOptions.settings,
                   child: ListTile(
