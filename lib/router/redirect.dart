@@ -40,6 +40,9 @@ String? guardRedirect([Uri? uri]) {
         }
       }
     }
+    if (firstSegment == null) {
+      return const GamesRoute().location;
+    }
   } else {
     if (firstSegment != 'login') {
       return const LoginRoute().location;

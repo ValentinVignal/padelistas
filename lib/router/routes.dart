@@ -8,6 +8,7 @@ import '../screens/login/login.dart';
 import '../screens/set_up_profile/set_up_profile_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../screens/sign_up/sign_up.dart';
+import '../screens/users/users_screen.dart';
 import '../screens/verify_email/verify_email_screen.dart';
 import '../screens/waiting_for_approval/waiting_for_approval_screen.dart';
 import 'redirect.dart';
@@ -99,5 +100,15 @@ class GamesRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const GamesScreen();
+  }
+}
+
+@TypedGoRoute<UsersRoute>(path: '/users')
+class UsersRoute extends GoRouteData {
+  const UsersRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const UsersScreen();
   }
 }

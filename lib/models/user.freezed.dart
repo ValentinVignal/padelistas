@@ -29,6 +29,7 @@ mixin _$User {
   String get lastName => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   bool get isApproved => throw _privateConstructorUsedError;
+  bool get isAdmin => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $UserCopyWith<$Res> {
       String firstName,
       String lastName,
       String phoneNumber,
-      bool isApproved});
+      bool isApproved,
+      bool isAdmin});
 }
 
 /// @nodoc
@@ -66,6 +68,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? lastName = null,
     Object? phoneNumber = null,
     Object? isApproved = null,
+    Object? isAdmin = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -88,6 +91,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.isApproved
           : isApproved // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAdmin: null == isAdmin
+          ? _value.isAdmin
+          : isAdmin // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String firstName,
       String lastName,
       String phoneNumber,
-      bool isApproved});
+      bool isApproved,
+      bool isAdmin});
 }
 
 /// @nodoc
@@ -120,6 +128,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? lastName = null,
     Object? phoneNumber = null,
     Object? isApproved = null,
+    Object? isAdmin = null,
   }) {
     return _then(_$_User(
       id: null == id
@@ -142,6 +151,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.isApproved
           : isApproved // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAdmin: null == isAdmin
+          ? _value.isAdmin
+          : isAdmin // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -154,7 +167,8 @@ class _$_User extends _User {
       required this.firstName,
       required this.lastName,
       required this.phoneNumber,
-      this.isApproved = false})
+      this.isApproved = false,
+      this.isAdmin = false})
       : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
@@ -174,10 +188,13 @@ class _$_User extends _User {
   @override
   @JsonKey()
   final bool isApproved;
+  @override
+  @JsonKey()
+  final bool isAdmin;
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, isApproved: $isApproved)';
+    return 'User(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, isApproved: $isApproved, isAdmin: $isAdmin)';
   }
 
   @override
@@ -193,13 +210,14 @@ class _$_User extends _User {
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.isApproved, isApproved) ||
-                other.isApproved == isApproved));
+                other.isApproved == isApproved) &&
+            (identical(other.isAdmin, isAdmin) || other.isAdmin == isAdmin));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, firstName, lastName, phoneNumber, isApproved);
+      runtimeType, id, firstName, lastName, phoneNumber, isApproved, isAdmin);
 
   @JsonKey(ignore: true)
   @override
@@ -221,7 +239,8 @@ abstract class _User extends User {
       required final String firstName,
       required final String lastName,
       required final String phoneNumber,
-      final bool isApproved}) = _$_User;
+      final bool isApproved,
+      final bool isAdmin}) = _$_User;
   const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -239,6 +258,8 @@ abstract class _User extends User {
   String get phoneNumber;
   @override
   bool get isApproved;
+  @override
+  bool get isAdmin;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

@@ -12,6 +12,7 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       lastName: json['lastName'] as String,
       phoneNumber: json['phoneNumber'] as String,
       isApproved: json['isApproved'] as bool? ?? false,
+      isAdmin: json['isAdmin'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -19,4 +20,5 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'lastName': instance.lastName,
       'phoneNumber': instance.phoneNumber,
       'isApproved': instance.isApproved,
+      'isAdmin': instance.isAdmin,
     };

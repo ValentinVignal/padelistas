@@ -16,6 +16,7 @@ class User with _$User {
     required String lastName,
     required String phoneNumber,
     @Default(false) bool isApproved,
+    @Default(false) bool isAdmin,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

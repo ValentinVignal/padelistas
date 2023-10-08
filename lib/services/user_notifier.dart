@@ -48,4 +48,5 @@ final loggedInUserProvider =
 
 extension UserNotifierExtension on ValueNotifier<User?> {
   bool get isProfileSetup => value != null;
+  bool get isAdmin => value?.isAdmin ?? false;
 }
