@@ -32,9 +32,9 @@ class _SignUpScreenContent extends StatefulWidget {
 }
 
 class _SignUpScreenContentState extends State<_SignUpScreenContent> {
-  late final _emailController = TextEditingController();
-  late final _passwordController0 = TextEditingController();
-  late final _passwordController1 = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController0 = TextEditingController();
+  final _passwordController1 = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var _obscure0 = true;
   var _obscure1 = true;

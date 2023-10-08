@@ -8,10 +8,15 @@ part of 'user.dart';
 
 _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       id: json['id'] as String,
-      name: json['name'] as String,
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      isApproved: json['isApproved'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'phoneNumber': instance.phoneNumber,
+      'isApproved': instance.isApproved,
     };

@@ -10,8 +10,10 @@ List<RouteBase> get $appRoutes => [
       $homeRoute,
       $loginRoute,
       $verifyEmailRoute,
+      $setUpProfileRoute,
       $waitingForApprovalRoute,
       $settingsRoute,
+      $gamesRoute,
     ];
 
 RouteBase get $homeRoute => GoRouteData.$route(
@@ -119,6 +121,29 @@ extension $VerifyEmailRouteExtension on VerifyEmailRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $setUpProfileRoute => GoRouteData.$route(
+      path: '/set-up-profile',
+      factory: $SetUpProfileRouteExtension._fromState,
+    );
+
+extension $SetUpProfileRouteExtension on SetUpProfileRoute {
+  static SetUpProfileRoute _fromState(GoRouterState state) =>
+      const SetUpProfileRoute();
+
+  String get location => GoRouteData.$location(
+        '/set-up-profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $waitingForApprovalRoute => GoRouteData.$route(
       path: '/waiting-for-approval',
       factory: $WaitingForApprovalRouteExtension._fromState,
@@ -152,6 +177,28 @@ extension $SettingsRouteExtension on SettingsRoute {
 
   String get location => GoRouteData.$location(
         '/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $gamesRoute => GoRouteData.$route(
+      path: '/games',
+      factory: $GamesRouteExtension._fromState,
+    );
+
+extension $GamesRouteExtension on GamesRoute {
+  static GamesRoute _fromState(GoRouterState state) => const GamesRoute();
+
+  String get location => GoRouteData.$location(
+        '/games',
       );
 
   void go(BuildContext context) => context.go(location);

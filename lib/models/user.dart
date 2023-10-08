@@ -1,16 +1,28 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../utils/json.dart';
+
 part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
 class User with _$User {
   const factory User({
-    required String id,
-    required String name,
+    // It is what freezed recommends.
+    //
+    // ignore: invalid_annotation_target
+    @JsonKey(includeToJson: false) required String id,
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    @Default(false) bool isApproved,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJsonDocument(String id, Json document) => User.fromJson({
+        ...document,
+        'id': id,
+      });
 
   const User._();
 }

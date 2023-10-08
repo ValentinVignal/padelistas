@@ -7,6 +7,7 @@ import 'package:logging/logging.dart';
 import '../../router/routes.dart';
 import '../../services/auth.dart';
 import '../../utils/iterable_extension.dart';
+import '../settings/settings_button.dart';
 
 final _logger = Logger('LoginScreen');
 
@@ -18,6 +19,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
+        actions: const [SettingsButton()],
       ),
       body: const _LoginScreenContent(),
     );
@@ -104,6 +106,7 @@ class __LoginScreenContentState extends State<_LoginScreenContent> {
               ),
               controller: _passwordController,
               obscureText: _obscure,
+              onFieldSubmitted: (_) => _login(),
               validator: (value) =>
                   (value?.isNotEmpty ?? false) ? null : 'Required',
             ),

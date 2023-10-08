@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final userNotifier = _getUserNotifier();
+final authUserNotifier = _getUserNotifier();
 
 ValueNotifier<User?> _getUserNotifier() {
   final userNotifier = ValueNotifier<User?>(null);
@@ -15,9 +15,9 @@ ValueNotifier<User?> _getUserNotifier() {
   return userNotifier;
 }
 
-final loggedInUserProvider =
+final loggedInAuthUserProvider =
     ChangeNotifierProvider<ValueNotifier<User?>>((ref) {
-  return userNotifier;
+  return authUserNotifier;
 });
 
 extension UserNotifierExtension on ValueNotifier<User?> {

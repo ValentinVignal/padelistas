@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds a sign up flow until a dummy waiting for approval screen.
+
 ## 0.6.1 [2023-10-07]
 
 - Redirects to verify email in the guard.

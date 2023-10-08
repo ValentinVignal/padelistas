@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 import '../../services/auth.dart';
-import '../../services/settings/user_notifier.dart';
+import '../../services/auth_user_notifier.dart';
 import '../../utils/iterable_extension.dart';
+import '../settings/settings_button.dart';
 
 final _logger = Logger('VerifyEmailScreen');
 
@@ -42,20 +43,17 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Verify your email'),
-        actions: [
-          IconButton(
-            onPressed: Auth.instance.signOut,
-            icon: const Icon(Icons.logout),
-          ),
+        actions: const [
+          SettingsButton(),
         ],
       ),
       body: ListView(
         children: [
           AnimatedBuilder(
-            animation: userNotifier,
+            animation: authUserNotifier,
             builder: (context, _) {
               return Center(
-                child: Text(userNotifier.value?.email ?? ''),
+                child: Text(authUserNotifier.value?.email ?? ''),
               );
             },
           ),

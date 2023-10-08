@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../services/settings/user_notifier.dart';
+import '../../services/auth_user_notifier.dart';
 
 enum _HomeOptions {
   settings,
@@ -14,7 +14,7 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoggedIn = ref.watch(loggedInUserProvider).isLoggedIn;
+    final isLoggedIn = ref.watch(loggedInAuthUserProvider).isLoggedIn;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Padelistas'),
@@ -45,7 +45,7 @@ class Home extends ConsumerWidget {
                   child: Consumer(
                     builder: (context, ref, _) {
                       final isLoggedIn =
-                          ref.watch(loggedInUserProvider).isLoggedIn;
+                          ref.watch(loggedInAuthUserProvider).isLoggedIn;
                       return ListTile(
                         leading: Icon(
                           isLoggedIn ? Icons.logout : Icons.login,

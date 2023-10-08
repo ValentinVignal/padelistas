@@ -20,8 +20,15 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
+// It is what freezed recommends.
+//
+// ignore: invalid_annotation_target
+  @JsonKey(includeToJson: false)
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get firstName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  bool get isApproved => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +40,12 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String id, String name});
+  $Res call(
+      {@JsonKey(includeToJson: false) String id,
+      String firstName,
+      String lastName,
+      String phoneNumber,
+      bool isApproved});
 }
 
 /// @nodoc
@@ -50,17 +62,32 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? phoneNumber = null,
+    Object? isApproved = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      isApproved: null == isApproved
+          ? _value.isApproved
+          : isApproved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -71,7 +98,12 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name});
+  $Res call(
+      {@JsonKey(includeToJson: false) String id,
+      String firstName,
+      String lastName,
+      String phoneNumber,
+      bool isApproved});
 }
 
 /// @nodoc
@@ -84,17 +116,32 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? phoneNumber = null,
+    Object? isApproved = null,
   }) {
     return _then(_$_User(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String,
+      lastName: null == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      isApproved: null == isApproved
+          ? _value.isApproved
+          : isApproved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -102,18 +149,35 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 /// @nodoc
 @JsonSerializable()
 class _$_User extends _User {
-  const _$_User({required this.id, required this.name}) : super._();
+  const _$_User(
+      {@JsonKey(includeToJson: false) required this.id,
+      required this.firstName,
+      required this.lastName,
+      required this.phoneNumber,
+      this.isApproved = false})
+      : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
+// It is what freezed recommends.
+//
+// ignore: invalid_annotation_target
   @override
+  @JsonKey(includeToJson: false)
   final String id;
   @override
-  final String name;
+  final String firstName;
+  @override
+  final String lastName;
+  @override
+  final String phoneNumber;
+  @override
+  @JsonKey()
+  final bool isApproved;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name)';
+    return 'User(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, isApproved: $isApproved)';
   }
 
   @override
@@ -122,12 +186,20 @@ class _$_User extends _User {
         (other.runtimeType == runtimeType &&
             other is _$_User &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.isApproved, isApproved) ||
+                other.isApproved == isApproved));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(
+      runtimeType, id, firstName, lastName, phoneNumber, isApproved);
 
   @JsonKey(ignore: true)
   @override
@@ -144,16 +216,29 @@ class _$_User extends _User {
 }
 
 abstract class _User extends User {
-  const factory _User({required final String id, required final String name}) =
-      _$_User;
+  const factory _User(
+      {@JsonKey(includeToJson: false) required final String id,
+      required final String firstName,
+      required final String lastName,
+      required final String phoneNumber,
+      final bool isApproved}) = _$_User;
   const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
-  @override
+  @override // It is what freezed recommends.
+//
+// ignore: invalid_annotation_target
+  @JsonKey(includeToJson: false)
   String get id;
   @override
-  String get name;
+  String get firstName;
+  @override
+  String get lastName;
+  @override
+  String get phoneNumber;
+  @override
+  bool get isApproved;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
