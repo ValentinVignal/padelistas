@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../models/user.dart';
 import '../../services/auth_user_notifier.dart';
 import '../../utils/iterable_extension.dart';
+import '../../widgets/phone_number_form_field.dart';
 import '../settings/settings_button.dart';
 
 class SetUpProfileScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
 
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
+  final _phoneNumberController = TextEditingController(text: '+65');
 
   final _formKey = GlobalKey<FormState>();
 
@@ -103,21 +103,8 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                 return null;
               },
             ),
-            TextFormField(
-              decoration: const InputDecoration(label: Text('Phone number')),
-              controller: _phoneNumberController,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'(\+|[0-9])')),
-              ],
-              validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return 'Mandatory field';
-                }
-                if (!_phoneNumberRegExp.hasMatch(value!)) {
-                  return 'Phone number not valid';
-                }
-                return null;
-              },
+            PhoneNumberFormField(
+              phoneNumberController: _phoneNumberController,
             ),
             const SizedBox(height: 16),
             Center(
@@ -132,5 +119,3 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
     );
   }
 }
-
-final _phoneNumberRegExp = RegExp(r'^\+?[0-9]{6,15}$');

@@ -1,6 +1,7 @@
 ## NEXT
 
 - Adds a sign up flow until a dummy waiting for approval screen.
+- Adds waiting for approval screen.
 
 ## 0.6.1 [2023-10-07]
 
