@@ -193,6 +193,12 @@ extension $SettingsRouteExtension on SettingsRoute {
 RouteBase get $gamesRoute => GoRouteData.$route(
       path: '/games',
       factory: $GamesRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'new',
+          factory: $NewGameRouteExtension._fromState,
+        ),
+      ],
     );
 
 extension $GamesRouteExtension on GamesRoute {
@@ -200,6 +206,23 @@ extension $GamesRouteExtension on GamesRoute {
 
   String get location => GoRouteData.$location(
         '/games',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $NewGameRouteExtension on NewGameRoute {
+  static NewGameRoute _fromState(GoRouterState state) => const NewGameRoute();
+
+  String get location => GoRouteData.$location(
+        '/games/new',
       );
 
   void go(BuildContext context) => context.go(location);

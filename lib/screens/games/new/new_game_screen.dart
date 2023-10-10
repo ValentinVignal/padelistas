@@ -1,23 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import '../../../models/event.dart';
+import '../../../models/game.dart';
+import '../../../models/level.dart';
 import '../../../models/location.dart';
 import '../../../utils/bool.dart';
+import '../../../utils/iterable_extension.dart';
 
-class EventCreateScreen extends StatefulWidget {
-  const EventCreateScreen({super.key});
+class NewGameScreen extends StatefulWidget {
+  const NewGameScreen({super.key});
 
   @override
-  State<EventCreateScreen> createState() => _EventCreateScreenState();
+  State<NewGameScreen> createState() => _NewGameScreenState();
 }
 
-class _EventCreateScreenState extends State<EventCreateScreen> {
+class _NewGameScreenState extends State<NewGameScreen> {
   Location? location;
 
   DateTime? date;
 
   TimeOfDay? time;
+
+  var duration = const Duration(hours: 1, minutes: 30);
+
+  final _numberOfPlayersController = TextEditingController(text: '4');
+
+  var _booked = true;
+
+  final _priceController = TextEditingController();
+
+  var _minLevel = Level.zero;
+  var _maxLevel = Level.seven;
 
   bool _canSave() {
     return location != null && date != null && time != null;
@@ -60,8 +74,8 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
     final now = DateTime.now();
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: ListView(
+        shrinkWrap: true,
         children: [
           DropdownButton(
             onChanged: (value) {
@@ -74,11 +88,10 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
             items: Location.values
                 .map((location) => DropdownMenuItem(
                       value: location,
-                      child: Text(location.name),
+                      child: Text(location.label),
                     ))
                 .toList(),
           ),
-          const SizedBox(height: 16),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 300),
             child: Row(
@@ -107,7 +120,6 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 16),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 300),
             child: Row(
@@ -125,7 +137,72 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 32),
+          Slider(
+            label:
+                'Duration: ${duration.inHours}h${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}min',
+            value: duration.inMinutes.toDouble(),
+            min: 60,
+            max: 180,
+            divisions: 4,
+            onChanged: (value) {
+              setState(() {
+                duration = Duration(minutes: value.toInt());
+              });
+            },
+          ),
+          TextFormField(
+            decoration: const InputDecoration(label: Text('Number of players')),
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            validator: (value) {
+              if (value?.isEmpty ?? true) return 'Required';
+              if (int.tryParse(value!) == null) return 'Invalid number';
+
+              return null;
+            },
+            controller: _numberOfPlayersController,
+          ),
+          Checkbox(
+            value: _booked,
+            onChanged: (value) {
+              setState(() {
+                _booked = value!;
+              });
+            },
+          ),
+          TextFormField(
+            decoration: const InputDecoration(label: Text('Price')),
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]|\.')),
+            ],
+            validator: (value) {
+              if (value?.isEmpty ?? true) return 'Required';
+              if (double.tryParse(value!) == null) return 'Invalid number';
+
+              return null;
+            },
+            controller: _priceController,
+          ),
+          RangeSlider(
+            labels: RangeLabels(
+              'Min level: ${_minLevel.fullLabel}',
+              'Max level: ${_maxLevel.fullLabel}',
+            ),
+            values: RangeValues(
+              _minLevel.value.toDouble(),
+              _maxLevel.value.toDouble(),
+            ),
+            min: Level.zero.value,
+            max: Level.seven.value,
+            divisions: Level.values.length - 1,
+            onChanged: (value) {
+              setState(() {
+                _minLevel = Level.fromValue(value.start);
+                _maxLevel = Level.fromValue(value.end);
+              });
+            },
+          ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -135,15 +212,26 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                 },
                 child: const Text('Cancel'),
               ),
-              const SizedBox(width: 8),
               ElevatedButton(
                 onPressed: _canSave().nullIfFalse(() async {
-                  await FirebaseFirestore.instance.collection('events').add(
-                        Event(
+                  await FirebaseFirestore.instance.collection('games').add(
+                        Game(
+                          id: '',
                           date: date!.add(
-                            Duration(hours: time!.hour, minutes: time!.minute),
+                            Duration(
+                              hours: time!.hour,
+                              minutes: time!.minute,
+                            ),
                           ),
                           location: location!,
+                          duration: duration,
+                          numberOfPlayers: int.parse(
+                            _numberOfPlayersController.text,
+                          ),
+                          booked: _booked,
+                          price: double.parse(_priceController.text),
+                          minLevel: _minLevel,
+                          maxLevel: _maxLevel,
                         ).toJson(),
                       );
                   if (!mounted) return;
@@ -154,7 +242,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
               ),
             ],
           ),
-        ],
+        ].separated(const SizedBox(height: 16)).toList(),
       ),
     );
   }

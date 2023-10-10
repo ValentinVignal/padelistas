@@ -22,7 +22,7 @@ class BottomSheetPage extends Page<dynamic> {
       capturedThemes:
           InheritedTheme.capture(from: context, to: navigator.context),
       barrierLabel: localizations.scrimLabel,
-      isScrollControlled: false,
+      isScrollControlled: true,
       barrierOnTapHint:
           localizations.scrimOnTapHint(localizations.bottomSheetLabel),
       modalBarrierColor: Theme.of(context).bottomSheetTheme.modalBarrierColor,

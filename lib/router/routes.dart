@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../screens/games/games_screen.dart';
+import '../screens/games/new/new_game_screen.dart';
 import '../screens/login/login.dart';
 import '../screens/set_up_profile/set_up_profile_screen.dart';
 import '../screens/settings/settings_screen.dart';
@@ -11,6 +12,7 @@ import '../screens/sign_up/sign_up.dart';
 import '../screens/users/users_screen.dart';
 import '../screens/verify_email/verify_email_screen.dart';
 import '../screens/waiting_for_approval/waiting_for_approval_screen.dart';
+import 'pages/bottom_sheet_page.dart';
 import 'redirect.dart';
 
 part 'routes.g.dart';
@@ -93,13 +95,30 @@ class SettingsRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<GamesRoute>(path: '/games')
+@TypedGoRoute<GamesRoute>(
+  path: '/games',
+  routes: [
+    TypedGoRoute<NewGameRoute>(path: 'new'),
+  ],
+)
 class GamesRoute extends GoRouteData {
   const GamesRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const GamesScreen();
+  }
+}
+
+class NewGameRoute extends GoRouteData {
+  const NewGameRoute();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return BottomSheetPage(
+      key: state.pageKey,
+      child: const NewGameScreen(),
+    );
   }
 }
 

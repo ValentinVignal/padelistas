@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../models/games_provider.dart';
 import '../../router/routes.dart';
 import '../../services/user_notifier.dart';
 
-class GamesScreen extends StatelessWidget {
+class GamesScreen extends ConsumerWidget {
   const GamesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final games = ref.watch(gamesProvider).valueOrNull ?? const [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Games'),
         actions: const [_MoreButton()],
       ),
-      body: const Center(
-        child: Text('Coming soon'),
+      body: ListView.builder(
+        itemCount: games.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(
+              games[index].toJson().toString(),
+            ),
+          );
+        },
       ),
+      floatingActionButton: const _FAB(),
     );
   }
 }
@@ -64,6 +74,24 @@ class _MoreButton extends ConsumerWidget {
           ),
         ];
       },
+    );
+  }
+}
+
+class _FAB extends ConsumerWidget {
+  const _FAB();
+
+  void _createGame(BuildContext context) {
+    const NewGameRoute().push(context);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FloatingActionButton(
+      onPressed: () {
+        _createGame(context);
+      },
+      child: const Icon(Icons.add),
     );
   }
 }

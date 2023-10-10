@@ -34,6 +34,7 @@ class UsersScreen extends ConsumerWidget {
               ],
             ),
             subtitle: SelectableText(user.phoneNumber),
+            trailing: PopupMenuButton(itemBuilder: (context) => const []),
           );
         },
       ),
