@@ -1,4 +1,4 @@
-## NEXT
+## 0.8.0 [2023-10-10]
 
 - Adds a users screen.
 - Only allow logged in users to read and write data.
