@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/games_provider.dart';
 import '../../router/routes.dart';
 import '../../services/user_notifier.dart';
+import '../../utils/date.dart';
+import 'game/game_tile.dart';
 
 class GamesScreen extends ConsumerWidget {
   const GamesScreen({super.key});
@@ -19,11 +22,18 @@ class GamesScreen extends ConsumerWidget {
       body: ListView.builder(
         itemCount: games.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              games[index].toJson().toString(),
-            ),
-          );
+          final game = games[index];
+          final tile = GameTile(game: game);
+          if (index == 0 || !games[index - 1].date.isSameDayAs(game.date)) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _DateHeader(date: game.date),
+                tile,
+              ],
+            );
+          }
+          return tile;
         },
       ),
       floatingActionButton: const _FAB(),
@@ -92,6 +102,26 @@ class _FAB extends ConsumerWidget {
         _createGame(context);
       },
       child: const Icon(Icons.add),
+    );
+  }
+}
+
+class _DateHeader extends StatelessWidget {
+  const _DateHeader({
+    required this.date,
+  });
+
+  final DateTime date;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Chip(
+        label: Text(
+          DateFormat.yMMMd().format(date),
+        ),
+      ),
     );
   }
 }

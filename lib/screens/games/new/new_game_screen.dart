@@ -6,6 +6,7 @@ import '../../../models/game.dart';
 import '../../../models/level.dart';
 import '../../../models/location.dart';
 import '../../../utils/bool.dart';
+import '../../../utils/duration.dart';
 import '../../../utils/iterable_extension.dart';
 
 class NewGameScreen extends StatefulWidget {
@@ -138,8 +139,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
             ),
           ),
           Slider(
-            label:
-                'Duration: ${duration.inHours}h${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}min',
+            label: 'Duration: ${duration.label}',
             value: duration.inMinutes.toDouble(),
             min: 60,
             max: 180,

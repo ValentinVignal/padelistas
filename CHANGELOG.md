@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds game tile.
+
 ## 0.8.0 [2023-10-10]
 
 - Adds a users screen.
