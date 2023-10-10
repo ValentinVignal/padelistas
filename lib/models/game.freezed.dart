@@ -26,12 +26,15 @@ mixin _$Game {
   @JsonKey(includeToJson: false)
   String get id => throw _privateConstructorUsedError;
   Location get location => throw _privateConstructorUsedError;
+  @DateToTimestampJsonConverter()
   DateTime get date => throw _privateConstructorUsedError;
   Duration get duration => throw _privateConstructorUsedError;
   int get numberOfPlayers => throw _privateConstructorUsedError;
   bool get booked => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  @LevelJsonConverter()
   Level get minLevel => throw _privateConstructorUsedError;
+  @LevelJsonConverter()
   Level get maxLevel => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,13 +50,13 @@ abstract class $GameCopyWith<$Res> {
   $Res call(
       {@JsonKey(includeToJson: false) String id,
       Location location,
-      DateTime date,
+      @DateToTimestampJsonConverter() DateTime date,
       Duration duration,
       int numberOfPlayers,
       bool booked,
       double price,
-      Level minLevel,
-      Level maxLevel});
+      @LevelJsonConverter() Level minLevel,
+      @LevelJsonConverter() Level maxLevel});
 }
 
 /// @nodoc
@@ -129,13 +132,13 @@ abstract class _$$_GameCopyWith<$Res> implements $GameCopyWith<$Res> {
   $Res call(
       {@JsonKey(includeToJson: false) String id,
       Location location,
-      DateTime date,
+      @DateToTimestampJsonConverter() DateTime date,
       Duration duration,
       int numberOfPlayers,
       bool booked,
       double price,
-      Level minLevel,
-      Level maxLevel});
+      @LevelJsonConverter() Level minLevel,
+      @LevelJsonConverter() Level maxLevel});
 }
 
 /// @nodoc
@@ -204,13 +207,13 @@ class _$_Game extends _Game {
   const _$_Game(
       {@JsonKey(includeToJson: false) required this.id,
       required this.location,
-      required this.date,
+      @DateToTimestampJsonConverter() required this.date,
       required this.duration,
       required this.numberOfPlayers,
       required this.booked,
       required this.price,
-      required this.minLevel,
-      required this.maxLevel})
+      @LevelJsonConverter() required this.minLevel,
+      @LevelJsonConverter() required this.maxLevel})
       : super._();
 
   factory _$_Game.fromJson(Map<String, dynamic> json) => _$$_GameFromJson(json);
@@ -224,6 +227,7 @@ class _$_Game extends _Game {
   @override
   final Location location;
   @override
+  @DateToTimestampJsonConverter()
   final DateTime date;
   @override
   final Duration duration;
@@ -234,8 +238,10 @@ class _$_Game extends _Game {
   @override
   final double price;
   @override
+  @LevelJsonConverter()
   final Level minLevel;
   @override
+  @LevelJsonConverter()
   final Level maxLevel;
 
   @override
@@ -287,13 +293,13 @@ abstract class _Game extends Game {
   const factory _Game(
       {@JsonKey(includeToJson: false) required final String id,
       required final Location location,
-      required final DateTime date,
+      @DateToTimestampJsonConverter() required final DateTime date,
       required final Duration duration,
       required final int numberOfPlayers,
       required final bool booked,
       required final double price,
-      required final Level minLevel,
-      required final Level maxLevel}) = _$_Game;
+      @LevelJsonConverter() required final Level minLevel,
+      @LevelJsonConverter() required final Level maxLevel}) = _$_Game;
   const _Game._() : super._();
 
   factory _Game.fromJson(Map<String, dynamic> json) = _$_Game.fromJson;
@@ -306,6 +312,7 @@ abstract class _Game extends Game {
   @override
   Location get location;
   @override
+  @DateToTimestampJsonConverter()
   DateTime get date;
   @override
   Duration get duration;
@@ -316,8 +323,10 @@ abstract class _Game extends Game {
   @override
   double get price;
   @override
+  @LevelJsonConverter()
   Level get minLevel;
   @override
+  @LevelJsonConverter()
   Level get maxLevel;
   @override
   @JsonKey(ignore: true)

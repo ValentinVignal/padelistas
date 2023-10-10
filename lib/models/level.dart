@@ -1,3 +1,5 @@
+import 'package:json_annotation/json_annotation.dart';
+
 enum Level {
   zero(0),
   zeroPointFive(0.5),
@@ -42,5 +44,19 @@ extension LevelExtension on Level {
 
   String get fullLabel {
     return '$value $label';
+  }
+}
+
+class LevelJsonConverter implements JsonConverter<Level, double> {
+  const LevelJsonConverter();
+
+  @override
+  Level fromJson(double json) {
+    return Level.fromValue(json);
+  }
+
+  @override
+  double toJson(Level object) {
+    return object.value;
   }
 }

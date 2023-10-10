@@ -214,25 +214,27 @@ class _NewGameScreenState extends State<NewGameScreen> {
               ),
               ElevatedButton(
                 onPressed: _canSave().nullIfFalse(() async {
+                  final game = Game(
+                    id: '',
+                    date: date!.add(
+                      Duration(
+                        hours: time!.hour,
+                        minutes: time!.minute,
+                      ),
+                    ),
+                    location: location!,
+                    duration: duration,
+                    numberOfPlayers: int.parse(
+                      _numberOfPlayersController.text,
+                    ),
+                    booked: _booked,
+                    price: double.parse(_priceController.text),
+                    minLevel: _minLevel,
+                    maxLevel: _maxLevel,
+                  );
+
                   await FirebaseFirestore.instance.collection('games').add(
-                        Game(
-                          id: '',
-                          date: date!.add(
-                            Duration(
-                              hours: time!.hour,
-                              minutes: time!.minute,
-                            ),
-                          ),
-                          location: location!,
-                          duration: duration,
-                          numberOfPlayers: int.parse(
-                            _numberOfPlayersController.text,
-                          ),
-                          booked: _booked,
-                          price: double.parse(_priceController.text),
-                          minLevel: _minLevel,
-                          maxLevel: _maxLevel,
-                        ).toJson(),
+                        game.toJson(),
                       );
                   if (!mounted) return;
 

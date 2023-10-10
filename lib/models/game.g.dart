@@ -9,46 +9,29 @@ part of 'game.dart';
 _$_Game _$$_GameFromJson(Map<String, dynamic> json) => _$_Game(
       id: json['id'] as String,
       location: $enumDecode(_$LocationEnumMap, json['location']),
-      date: DateTime.parse(json['date'] as String),
+      date: const DateToTimestampJsonConverter()
+          .fromJson(json['date'] as Timestamp),
       duration: Duration(microseconds: json['duration'] as int),
       numberOfPlayers: json['numberOfPlayers'] as int,
       booked: json['booked'] as bool,
       price: (json['price'] as num).toDouble(),
-      minLevel: $enumDecode(_$LevelEnumMap, json['minLevel']),
-      maxLevel: $enumDecode(_$LevelEnumMap, json['maxLevel']),
+      minLevel: const LevelJsonConverter().fromJson(json['minLevel'] as double),
+      maxLevel: const LevelJsonConverter().fromJson(json['maxLevel'] as double),
     );
 
 Map<String, dynamic> _$$_GameToJson(_$_Game instance) => <String, dynamic>{
       'location': _$LocationEnumMap[instance.location]!,
-      'date': instance.date.toIso8601String(),
+      'date': const DateToTimestampJsonConverter().toJson(instance.date),
       'duration': instance.duration.inMicroseconds,
       'numberOfPlayers': instance.numberOfPlayers,
       'booked': instance.booked,
       'price': instance.price,
-      'minLevel': _$LevelEnumMap[instance.minLevel]!,
-      'maxLevel': _$LevelEnumMap[instance.maxLevel]!,
+      'minLevel': const LevelJsonConverter().toJson(instance.minLevel),
+      'maxLevel': const LevelJsonConverter().toJson(instance.maxLevel),
     };
 
 const _$LocationEnumMap = {
   Location.marinaSquare: 'marinaSquare',
   Location.ricochetSentosa: 'ricochetSentosa',
   Location.ricochetLaguna: 'ricochetLaguna',
-};
-
-const _$LevelEnumMap = {
-  Level.zero: 'zero',
-  Level.zeroPointFive: 'zeroPointFive',
-  Level.one: 'one',
-  Level.onePointFive: 'onePointFive',
-  Level.tow: 'tow',
-  Level.towPointFive: 'towPointFive',
-  Level.three: 'three',
-  Level.threePointFive: 'threePointFive',
-  Level.four: 'four',
-  Level.fourPointFive: 'fourPointFive',
-  Level.five: 'five',
-  Level.fivePointFive: 'fivePointFive',
-  Level.six: 'six',
-  Level.sixPointFive: 'sixPointFive',
-  Level.seven: 'seven',
 };

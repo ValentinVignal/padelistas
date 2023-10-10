@@ -10,10 +10,10 @@ final gamesProvider = StreamProvider.autoDispose<List<Game>>((ref) {
       .where('date', isGreaterThan: DateTime.now())
       .snapshots()
       .map(
-        (snapshot) => snapshot.docs
-            .map(
-              (doc) => Game.fromJsonDocument(doc.id, doc.data()),
-            )
-            .toList(),
+        (snapshot) => snapshot.docs.map(
+          (doc) {
+            return Game.fromJsonDocument(doc.id, doc.data());
+          },
+        ).toList(),
       );
 });
