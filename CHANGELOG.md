@@ -1,3 +1,7 @@
+## NEXT
+
+- Orders the users by name. And show the unapproved users first.
+
 ## 0.10.0 [2023-10-12]
 
 - Cleans the UI for the game creation bottom sheet.
