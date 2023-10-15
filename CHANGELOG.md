@@ -1,3 +1,7 @@
+## NEXT
+
+- Cleans the UI for the game creation bottom sheet.
+
 ## 0.9.0 [2023-10-11]
 
 - Adds game tile.
