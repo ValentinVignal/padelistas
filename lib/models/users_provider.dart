@@ -7,8 +7,8 @@ final usersProvider = StreamProvider.autoDispose<List<User>>((ref) {
   return FirebaseFirestore.instance
       .collection('users')
       .orderBy('isApproved')
-      .orderBy('firstName')
-      .orderBy('lastName')
+      // .orderBy('firstName')
+      // .orderBy('lastName')
       .snapshots()
       .map(
         (snapshot) => snapshot.docs

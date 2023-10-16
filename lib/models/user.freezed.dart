@@ -28,7 +28,7 @@ mixin _$User {
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
-  bool get isApproved => throw _privateConstructorUsedError;
+  bool? get isApproved => throw _privateConstructorUsedError;
   bool get isAdmin => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $UserCopyWith<$Res> {
       String firstName,
       String lastName,
       String phoneNumber,
-      bool isApproved,
+      bool? isApproved,
       bool isAdmin});
 }
 
@@ -67,7 +67,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? firstName = null,
     Object? lastName = null,
     Object? phoneNumber = null,
-    Object? isApproved = null,
+    Object? isApproved = freezed,
     Object? isAdmin = null,
   }) {
     return _then(_value.copyWith(
@@ -87,10 +87,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      isApproved: null == isApproved
+      isApproved: freezed == isApproved
           ? _value.isApproved
           : isApproved // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       isAdmin: null == isAdmin
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
@@ -110,7 +110,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String firstName,
       String lastName,
       String phoneNumber,
-      bool isApproved,
+      bool? isApproved,
       bool isAdmin});
 }
 
@@ -127,7 +127,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? firstName = null,
     Object? lastName = null,
     Object? phoneNumber = null,
-    Object? isApproved = null,
+    Object? isApproved = freezed,
     Object? isAdmin = null,
   }) {
     return _then(_$_User(
@@ -147,10 +147,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      isApproved: null == isApproved
+      isApproved: freezed == isApproved
           ? _value.isApproved
           : isApproved // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       isAdmin: null == isAdmin
           ? _value.isAdmin
           : isAdmin // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ class _$_User extends _User {
       required this.firstName,
       required this.lastName,
       required this.phoneNumber,
-      this.isApproved = false,
+      this.isApproved,
       this.isAdmin = false})
       : super._();
 
@@ -186,8 +186,7 @@ class _$_User extends _User {
   @override
   final String phoneNumber;
   @override
-  @JsonKey()
-  final bool isApproved;
+  final bool? isApproved;
   @override
   @JsonKey()
   final bool isAdmin;
@@ -239,7 +238,7 @@ abstract class _User extends User {
       required final String firstName,
       required final String lastName,
       required final String phoneNumber,
-      final bool isApproved,
+      final bool? isApproved,
       final bool isAdmin}) = _$_User;
   const _User._() : super._();
 
@@ -257,7 +256,7 @@ abstract class _User extends User {
   @override
   String get phoneNumber;
   @override
-  bool get isApproved;
+  bool? get isApproved;
   @override
   bool get isAdmin;
   @override

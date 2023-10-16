@@ -11,7 +11,7 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      isApproved: json['isApproved'] as bool? ?? false,
+      isApproved: json['isApproved'] as bool?,
       isAdmin: json['isAdmin'] as bool? ?? false,
     );
 

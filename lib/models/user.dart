@@ -15,7 +15,7 @@ class User with _$User {
     required String firstName,
     required String lastName,
     required String phoneNumber,
-    @Default(false) bool isApproved,
+    bool? isApproved,
     @Default(false) bool isAdmin,
   }) = _User;
 
@@ -26,4 +26,6 @@ class User with _$User {
       });
 
   const User._();
+
+  bool get isApprovedNullSafe => isApproved ?? false;
 }

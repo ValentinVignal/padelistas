@@ -1,6 +1,7 @@
 ## NEXT
 
-- Orders the users by name. And show the unapproved users first.
+- Orders the users by status.
+- Allow admin to approve and disapprove users.
 
 ## 0.10.0 [2023-10-12]
 

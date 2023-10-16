@@ -29,7 +29,7 @@ String? guardRedirect([Uri? uri]) {
         if (firstSegment == 'set-up-profile') {
           return const HomeRoute().location;
         }
-        if (!userNotifier.value!.isApproved) {
+        if (!userNotifier.value!.isApprovedNullSafe) {
           if (firstSegment != 'waiting-for-approval') {
             return const WaitingForApprovalRoute().location;
           }
