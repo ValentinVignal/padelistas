@@ -1,4 +1,4 @@
-## NEXT
+## 0.11.0 [2023-10-17]
 
 - Orders the users by status.
 - Allow admin to approve and disapprove users.
