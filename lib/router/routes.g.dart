@@ -198,6 +198,10 @@ RouteBase get $gamesRoute => GoRouteData.$route(
           path: 'new',
           factory: $NewGameRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: ':id',
+          factory: $GameRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -223,6 +227,25 @@ extension $NewGameRouteExtension on NewGameRoute {
 
   String get location => GoRouteData.$location(
         '/games/new',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GameRouteExtension on GameRoute {
+  static GameRoute _fromState(GoRouterState state) => GameRoute(
+        id: state.pathParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/games/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../models/game.dart';
 import '../../../models/location.dart';
+import '../../../router/routes.dart';
 import '../../../utils/duration.dart';
 
 class GameTile extends StatelessWidget {
@@ -44,7 +45,7 @@ class GameTile extends StatelessWidget {
             text: TextSpan(
               style: textTheme,
               children: [
-                const TextSpan(text: '0/'),
+                TextSpan(text: '${game.playersNullSafe.length}/'),
                 TextSpan(text: game.numberOfPlayers.toString()),
                 const WidgetSpan(child: Icon(Icons.person)),
               ],
@@ -67,9 +68,7 @@ class GameTile extends StatelessWidget {
         },
       ),
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Coming soon')),
-        );
+        GameRoute(id: game.id).push(context);
       },
     );
   }

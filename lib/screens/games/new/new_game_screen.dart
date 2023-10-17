@@ -95,7 +95,11 @@ class _NewGameScreenState extends State<NewGameScreen> {
                   children: [
                     Flexible(
                       flex: 2,
-                      child: DropdownButton(
+                      child: DropdownButtonFormField(
+                        validator: (value) {
+                          if (value == null) return 'Required';
+                          return null;
+                        },
                         isExpanded: true,
                         onChanged: (value) {
                           setState(() {

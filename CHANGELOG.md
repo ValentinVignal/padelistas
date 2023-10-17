@@ -3,6 +3,7 @@
 - Orders the users by status.
 - Allow admin to approve and disapprove users.
 - Removes references to events.
+- Adds the minimum to join a game.
 
 ## 0.10.0 [2023-10-12]
 

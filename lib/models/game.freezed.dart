@@ -36,6 +36,7 @@ mixin _$Game {
   Level get minLevel => throw _privateConstructorUsedError;
   @LevelJsonConverter()
   Level get maxLevel => throw _privateConstructorUsedError;
+  List<String>? get players => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,7 +57,8 @@ abstract class $GameCopyWith<$Res> {
       bool booked,
       double price,
       @LevelJsonConverter() Level minLevel,
-      @LevelJsonConverter() Level maxLevel});
+      @LevelJsonConverter() Level maxLevel,
+      List<String>? players});
 }
 
 /// @nodoc
@@ -81,6 +83,7 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
     Object? price = null,
     Object? minLevel = null,
     Object? maxLevel = null,
+    Object? players = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -119,6 +122,10 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
           ? _value.maxLevel
           : maxLevel // ignore: cast_nullable_to_non_nullable
               as Level,
+      players: freezed == players
+          ? _value.players
+          : players // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -138,7 +145,8 @@ abstract class _$$_GameCopyWith<$Res> implements $GameCopyWith<$Res> {
       bool booked,
       double price,
       @LevelJsonConverter() Level minLevel,
-      @LevelJsonConverter() Level maxLevel});
+      @LevelJsonConverter() Level maxLevel,
+      List<String>? players});
 }
 
 /// @nodoc
@@ -159,6 +167,7 @@ class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
     Object? price = null,
     Object? minLevel = null,
     Object? maxLevel = null,
+    Object? players = freezed,
   }) {
     return _then(_$_Game(
       id: null == id
@@ -197,6 +206,10 @@ class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
           ? _value.maxLevel
           : maxLevel // ignore: cast_nullable_to_non_nullable
               as Level,
+      players: freezed == players
+          ? _value._players
+          : players // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -213,8 +226,10 @@ class _$_Game extends _Game {
       required this.booked,
       required this.price,
       @LevelJsonConverter() required this.minLevel,
-      @LevelJsonConverter() required this.maxLevel})
-      : super._();
+      @LevelJsonConverter() required this.maxLevel,
+      final List<String>? players})
+      : _players = players,
+        super._();
 
   factory _$_Game.fromJson(Map<String, dynamic> json) => _$$_GameFromJson(json);
 
@@ -243,10 +258,19 @@ class _$_Game extends _Game {
   @override
   @LevelJsonConverter()
   final Level maxLevel;
+  final List<String>? _players;
+  @override
+  List<String>? get players {
+    final value = _players;
+    if (value == null) return null;
+    if (_players is EqualUnmodifiableListView) return _players;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Game(id: $id, location: $location, date: $date, duration: $duration, numberOfPlayers: $numberOfPlayers, booked: $booked, price: $price, minLevel: $minLevel, maxLevel: $maxLevel)';
+    return 'Game(id: $id, location: $location, date: $date, duration: $duration, numberOfPlayers: $numberOfPlayers, booked: $booked, price: $price, minLevel: $minLevel, maxLevel: $maxLevel, players: $players)';
   }
 
   @override
@@ -267,13 +291,24 @@ class _$_Game extends _Game {
             (identical(other.minLevel, minLevel) ||
                 other.minLevel == minLevel) &&
             (identical(other.maxLevel, maxLevel) ||
-                other.maxLevel == maxLevel));
+                other.maxLevel == maxLevel) &&
+            const DeepCollectionEquality().equals(other._players, _players));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, location, date, duration,
-      numberOfPlayers, booked, price, minLevel, maxLevel);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      location,
+      date,
+      duration,
+      numberOfPlayers,
+      booked,
+      price,
+      minLevel,
+      maxLevel,
+      const DeepCollectionEquality().hash(_players));
 
   @JsonKey(ignore: true)
   @override
@@ -299,7 +334,8 @@ abstract class _Game extends Game {
       required final bool booked,
       required final double price,
       @LevelJsonConverter() required final Level minLevel,
-      @LevelJsonConverter() required final Level maxLevel}) = _$_Game;
+      @LevelJsonConverter() required final Level maxLevel,
+      final List<String>? players}) = _$_Game;
   const _Game._() : super._();
 
   factory _Game.fromJson(Map<String, dynamic> json) = _$_Game.fromJson;
@@ -328,6 +364,8 @@ abstract class _Game extends Game {
   @override
   @LevelJsonConverter()
   Level get maxLevel;
+  @override
+  List<String>? get players;
   @override
   @JsonKey(ignore: true)
   _$$_GameCopyWith<_$_Game> get copyWith => throw _privateConstructorUsedError;

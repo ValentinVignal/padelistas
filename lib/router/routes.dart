@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../screens/games/game/game_screen.dart';
 import '../screens/games/games_screen.dart';
 import '../screens/games/new/new_game_screen.dart';
 import '../screens/login/login.dart';
@@ -99,6 +100,7 @@ class SettingsRoute extends GoRouteData {
   path: '/games',
   routes: [
     TypedGoRoute<NewGameRoute>(path: 'new'),
+    TypedGoRoute<GameRoute>(path: ':id'),
   ],
 )
 class GamesRoute extends GoRouteData {
@@ -118,6 +120,22 @@ class NewGameRoute extends GoRouteData {
     return BottomSheetPage(
       key: state.pageKey,
       child: const NewGameScreen(),
+    );
+  }
+}
+
+class GameRoute extends GoRouteData {
+  const GameRoute({
+    required this.id,
+  });
+
+  final String id;
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return BottomSheetPage(
+      key: state.pageKey,
+      child: GameScreen(id: id),
     );
   }
 }

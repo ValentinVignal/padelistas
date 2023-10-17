@@ -17,6 +17,8 @@ _$_Game _$$_GameFromJson(Map<String, dynamic> json) => _$_Game(
       price: (json['price'] as num).toDouble(),
       minLevel: const LevelJsonConverter().fromJson(json['minLevel'] as double),
       maxLevel: const LevelJsonConverter().fromJson(json['maxLevel'] as double),
+      players:
+          (json['players'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_GameToJson(_$_Game instance) => <String, dynamic>{
@@ -28,6 +30,7 @@ Map<String, dynamic> _$$_GameToJson(_$_Game instance) => <String, dynamic>{
       'price': instance.price,
       'minLevel': const LevelJsonConverter().toJson(instance.minLevel),
       'maxLevel': const LevelJsonConverter().toJson(instance.maxLevel),
+      'players': instance.players,
     };
 
 const _$LocationEnumMap = {

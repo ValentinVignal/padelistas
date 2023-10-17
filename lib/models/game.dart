@@ -24,6 +24,7 @@ class Game with _$Game {
     required double price,
     @LevelJsonConverter() required Level minLevel,
     @LevelJsonConverter() required Level maxLevel,
+    List<String>? players,
   }) = _Game;
 
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
@@ -33,4 +34,6 @@ class Game with _$Game {
       });
 
   const Game._();
+
+  List<String> get playersNullSafe => players ?? const <String>[];
 }
