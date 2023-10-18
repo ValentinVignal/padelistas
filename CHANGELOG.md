@@ -1,3 +1,7 @@
+## NEXT
+
+- Upgrades dependencies.
+
 ## 0.11.0 [2023-10-17]
 
 - Orders the users by status.
