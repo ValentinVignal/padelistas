@@ -1,6 +1,7 @@
 ## NEXT
 
 - Upgrades dependencies.
+- Adds google sign in.
 
 ## 0.11.0 [2023-10-17]
 

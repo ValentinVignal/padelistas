@@ -8,6 +8,7 @@ import '../../router/routes.dart';
 import '../../services/auth.dart';
 import '../../utils/iterable_extension.dart';
 import '../settings/settings_button.dart';
+import 'google_sign_in.dart';
 
 final _logger = Logger('LoginScreen');
 
@@ -124,6 +125,9 @@ class __LoginScreenContentState extends State<_LoginScreenContent> {
                 ),
               ),
             ),
+          ),
+          const Center(
+            child: GoogleSignInWidget(),
           ),
           Center(
             child: ElevatedButton(
