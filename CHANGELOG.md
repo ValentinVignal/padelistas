@@ -1,4 +1,4 @@
-## NEXT
+## 0.13.0 [2023-10-21]
 
 - Adds google analytics.
 
