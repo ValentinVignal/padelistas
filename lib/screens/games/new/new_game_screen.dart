@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -252,12 +253,12 @@ class _NewGameScreenState extends State<NewGameScreen> {
                   Expanded(
                     flex: 2,
                     child: TextFormField(
-                      decoration: const InputDecoration(label: Text('Price')),
+                      decoration: const InputDecoration(label: Text('* Price')),
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]|\.')),
                       ],
                       validator: (value) {
-                        if (value?.isEmpty ?? true) return null;
+                        if (value?.isEmpty ?? true) return 'Required';
                         if (double.tryParse(value!) == null) {
                           return 'Invalid number';
                         }
@@ -305,6 +306,11 @@ class _NewGameScreenState extends State<NewGameScreen> {
                       await FirebaseFirestore.instance.collection('games').add(
                             game.toJson(),
                           );
+
+                      FirebaseAnalytics.instance.logEvent(
+                        name: 'new_game',
+                        parameters: game.toJson(),
+                      );
                       if (!mounted) return;
 
                       Navigator.of(context).pop();

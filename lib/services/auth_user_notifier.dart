@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +11,7 @@ ValueNotifier<User?> _getUserNotifier() {
   FirebaseAuth.instance.userChanges().listen(
     (user) {
       userNotifier.value = user;
+      FirebaseAnalytics.instance.setUserId(id: user?.uid);
     },
   );
   return userNotifier;

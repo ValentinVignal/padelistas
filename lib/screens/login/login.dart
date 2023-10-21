@@ -1,4 +1,5 @@
 import 'package:animated_collection/animated_collection.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -58,6 +59,7 @@ class __LoginScreenContentState extends State<_LoginScreenContent> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+      FirebaseAnalytics.instance.logLogin(loginMethod: 'email');
     } on FirebaseAuthException catch (e) {
       setState(() {
         _error = e.message ?? 'Unknown error';

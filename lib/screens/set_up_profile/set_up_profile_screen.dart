@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
@@ -59,10 +60,18 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
+    final authUser = authUserNotifier.value!;
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(authUserNotifier.value!.uid)
+        .doc(authUser.uid)
         .set(user.toJson());
+
+    final method = authUser.providerData
+        .map(
+          (data) => data.providerId,
+        )
+        .join(', ');
+    FirebaseAnalytics.instance.logSignUp(signUpMethod: method);
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,6 +25,7 @@ class GoogleSignInWidget extends StatelessWidget {
 
     // Once signed in, return the UserCredential
     await Auth.instance.signInWithCredential(credential);
+    FirebaseAnalytics.instance.logLogin(loginMethod: 'google');
   }
 
   @override

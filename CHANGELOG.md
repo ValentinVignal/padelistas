@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds google analytics.
+
 ## 0.12.0 [2023-10-21]
 
 - Upgrades dependencies.
