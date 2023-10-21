@@ -63,7 +63,7 @@ class UsersScreen extends ConsumerWidget {
               children: [
                 if (user.isAdmin) const Icon(Icons.admin_panel_settings),
                 Flexible(
-                  child: SelectableText('${user.firstName} ${user.lastName}'),
+                  child: SelectableText(user.fullName),
                 ),
               ],
             ),

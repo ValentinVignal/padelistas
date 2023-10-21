@@ -25,6 +25,7 @@ class Game with _$Game {
     @LevelJsonConverter() required Level minLevel,
     @LevelJsonConverter() required Level maxLevel,
     List<String>? players,
+    required String createdBy,
   }) = _Game;
 
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);

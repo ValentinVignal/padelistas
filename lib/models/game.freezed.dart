@@ -37,6 +37,7 @@ mixin _$Game {
   @LevelJsonConverter()
   Level get maxLevel => throw _privateConstructorUsedError;
   List<String>? get players => throw _privateConstructorUsedError;
+  String get createdBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +59,8 @@ abstract class $GameCopyWith<$Res> {
       double price,
       @LevelJsonConverter() Level minLevel,
       @LevelJsonConverter() Level maxLevel,
-      List<String>? players});
+      List<String>? players,
+      String createdBy});
 }
 
 /// @nodoc
@@ -84,6 +86,7 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
     Object? minLevel = null,
     Object? maxLevel = null,
     Object? players = freezed,
+    Object? createdBy = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -126,14 +129,19 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
           ? _value.players
           : players // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      createdBy: null == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_GameCopyWith<$Res> implements $GameCopyWith<$Res> {
-  factory _$$_GameCopyWith(_$_Game value, $Res Function(_$_Game) then) =
-      __$$_GameCopyWithImpl<$Res>;
+abstract class _$$GameImplCopyWith<$Res> implements $GameCopyWith<$Res> {
+  factory _$$GameImplCopyWith(
+          _$GameImpl value, $Res Function(_$GameImpl) then) =
+      __$$GameImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -146,13 +154,15 @@ abstract class _$$_GameCopyWith<$Res> implements $GameCopyWith<$Res> {
       double price,
       @LevelJsonConverter() Level minLevel,
       @LevelJsonConverter() Level maxLevel,
-      List<String>? players});
+      List<String>? players,
+      String createdBy});
 }
 
 /// @nodoc
-class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
-    implements _$$_GameCopyWith<$Res> {
-  __$$_GameCopyWithImpl(_$_Game _value, $Res Function(_$_Game) _then)
+class __$$GameImplCopyWithImpl<$Res>
+    extends _$GameCopyWithImpl<$Res, _$GameImpl>
+    implements _$$GameImplCopyWith<$Res> {
+  __$$GameImplCopyWithImpl(_$GameImpl _value, $Res Function(_$GameImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -168,8 +178,9 @@ class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
     Object? minLevel = null,
     Object? maxLevel = null,
     Object? players = freezed,
+    Object? createdBy = null,
   }) {
-    return _then(_$_Game(
+    return _then(_$GameImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -210,14 +221,18 @@ class __$$_GameCopyWithImpl<$Res> extends _$GameCopyWithImpl<$Res, _$_Game>
           ? _value._players
           : players // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      createdBy: null == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Game extends _Game {
-  const _$_Game(
+class _$GameImpl extends _Game {
+  const _$GameImpl(
       {@JsonKey(includeToJson: false) required this.id,
       required this.location,
       @DateToTimestampJsonConverter() required this.date,
@@ -227,11 +242,13 @@ class _$_Game extends _Game {
       required this.price,
       @LevelJsonConverter() required this.minLevel,
       @LevelJsonConverter() required this.maxLevel,
-      final List<String>? players})
+      final List<String>? players,
+      required this.createdBy})
       : _players = players,
         super._();
 
-  factory _$_Game.fromJson(Map<String, dynamic> json) => _$$_GameFromJson(json);
+  factory _$GameImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GameImplFromJson(json);
 
 // It is what freezed recommends.
 //
@@ -269,15 +286,18 @@ class _$_Game extends _Game {
   }
 
   @override
+  final String createdBy;
+
+  @override
   String toString() {
-    return 'Game(id: $id, location: $location, date: $date, duration: $duration, numberOfPlayers: $numberOfPlayers, booked: $booked, price: $price, minLevel: $minLevel, maxLevel: $maxLevel, players: $players)';
+    return 'Game(id: $id, location: $location, date: $date, duration: $duration, numberOfPlayers: $numberOfPlayers, booked: $booked, price: $price, minLevel: $minLevel, maxLevel: $maxLevel, players: $players, createdBy: $createdBy)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Game &&
+            other is _$GameImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.location, location) ||
                 other.location == location) &&
@@ -292,7 +312,9 @@ class _$_Game extends _Game {
                 other.minLevel == minLevel) &&
             (identical(other.maxLevel, maxLevel) ||
                 other.maxLevel == maxLevel) &&
-            const DeepCollectionEquality().equals(other._players, _players));
+            const DeepCollectionEquality().equals(other._players, _players) &&
+            (identical(other.createdBy, createdBy) ||
+                other.createdBy == createdBy));
   }
 
   @JsonKey(ignore: true)
@@ -308,17 +330,18 @@ class _$_Game extends _Game {
       price,
       minLevel,
       maxLevel,
-      const DeepCollectionEquality().hash(_players));
+      const DeepCollectionEquality().hash(_players),
+      createdBy);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GameCopyWith<_$_Game> get copyWith =>
-      __$$_GameCopyWithImpl<_$_Game>(this, _$identity);
+  _$$GameImplCopyWith<_$GameImpl> get copyWith =>
+      __$$GameImplCopyWithImpl<_$GameImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GameToJson(
+    return _$$GameImplToJson(
       this,
     );
   }
@@ -335,10 +358,11 @@ abstract class _Game extends Game {
       required final double price,
       @LevelJsonConverter() required final Level minLevel,
       @LevelJsonConverter() required final Level maxLevel,
-      final List<String>? players}) = _$_Game;
+      final List<String>? players,
+      required final String createdBy}) = _$GameImpl;
   const _Game._() : super._();
 
-  factory _Game.fromJson(Map<String, dynamic> json) = _$_Game.fromJson;
+  factory _Game.fromJson(Map<String, dynamic> json) = _$GameImpl.fromJson;
 
   @override // It is what freezed recommends.
 //
@@ -367,6 +391,9 @@ abstract class _Game extends Game {
   @override
   List<String>? get players;
   @override
+  String get createdBy;
+  @override
   @JsonKey(ignore: true)
-  _$$_GameCopyWith<_$_Game> get copyWith => throw _privateConstructorUsedError;
+  _$$GameImplCopyWith<_$GameImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

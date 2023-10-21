@@ -30,6 +30,21 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Consumer(
+            builder: (context, ref, _) {
+              final String text;
+              if (game != null) {
+                final user =
+                    ref.watch(userProvider(game.createdBy)).valueOrNull;
+                text = user?.fullName ?? '';
+              } else {
+                text = '';
+              }
+              return ListTile(
+                title: Text('Creator: $text'),
+              );
+            },
+          ),
           RichText(
             text: TextSpan(
               style: Theme.of(context).textTheme.titleMedium,
@@ -47,18 +62,21 @@ class _GameScreenState extends ConsumerState<GameScreen> {
           ),
           ...game?.playersNullSafe.map(
                 (playerId) {
-                  return Consumer(builder: (context, ref, _) {
-                    final user = ref.watch(userProvider(playerId)).valueOrNull;
-                    final String userString;
-                    if (user == null) {
-                      userString = 'Player';
-                    } else {
-                      userString = '${user.firstName} ${user.lastName}';
-                    }
-                    return ListTile(
-                      title: Text(userString),
-                    );
-                  });
+                  return Consumer(
+                    builder: (context, ref, _) {
+                      final user =
+                          ref.watch(userProvider(playerId)).valueOrNull;
+                      final String userString;
+                      if (user == null) {
+                        userString = 'Player';
+                      } else {
+                        userString = user.fullName;
+                      }
+                      return ListTile(
+                        title: Text(userString),
+                      );
+                    },
+                  );
                 },
               ) ??
               const [],

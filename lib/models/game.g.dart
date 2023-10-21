@@ -6,7 +6,7 @@ part of 'game.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Game _$$_GameFromJson(Map<String, dynamic> json) => _$_Game(
+_$GameImpl _$$GameImplFromJson(Map<String, dynamic> json) => _$GameImpl(
       id: json['id'] as String,
       location: $enumDecode(_$LocationEnumMap, json['location']),
       date: const DateToTimestampJsonConverter()
@@ -19,9 +19,11 @@ _$_Game _$$_GameFromJson(Map<String, dynamic> json) => _$_Game(
       maxLevel: const LevelJsonConverter().fromJson(json['maxLevel'] as double),
       players:
           (json['players'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      createdBy: json['createdBy'] as String,
     );
 
-Map<String, dynamic> _$$_GameToJson(_$_Game instance) => <String, dynamic>{
+Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) =>
+    <String, dynamic>{
       'location': _$LocationEnumMap[instance.location]!,
       'date': const DateToTimestampJsonConverter().toJson(instance.date),
       'duration': instance.duration.inMicroseconds,
@@ -31,6 +33,7 @@ Map<String, dynamic> _$$_GameToJson(_$_Game instance) => <String, dynamic>{
       'minLevel': const LevelJsonConverter().toJson(instance.minLevel),
       'maxLevel': const LevelJsonConverter().toJson(instance.maxLevel),
       'players': instance.players,
+      'createdBy': instance.createdBy,
     };
 
 const _$LocationEnumMap = {

@@ -2,6 +2,7 @@
 
 - Upgrades dependencies.
 - Adds google sign in.
+- Adds the creator to a game.
 
 ## 0.11.0 [2023-10-17]
 

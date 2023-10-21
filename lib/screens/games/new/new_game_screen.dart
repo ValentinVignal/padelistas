@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../models/game.dart';
 import '../../../models/level.dart';
 import '../../../models/location.dart';
+import '../../../services/user_notifier.dart';
 import '../../../utils/bool.dart';
 import '../../../utils/duration.dart';
 import '../../../utils/iterable_extension.dart';
@@ -298,6 +299,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
                         price: double.parse(_priceController.text),
                         minLevel: _minLevel,
                         maxLevel: _maxLevel,
+                        createdBy: userNotifier.value!.id,
                       );
 
                       await FirebaseFirestore.instance.collection('games').add(

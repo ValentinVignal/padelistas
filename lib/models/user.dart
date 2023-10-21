@@ -28,4 +28,6 @@ class User with _$User {
   const User._();
 
   bool get isApprovedNullSafe => isApproved ?? false;
+
+  String get fullName => '$firstName $lastName';
 }
