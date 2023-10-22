@@ -24,8 +24,12 @@ class Game with _$Game {
     required double price,
     @LevelJsonConverter() required Level minLevel,
     @LevelJsonConverter() required Level maxLevel,
-    List<String>? players,
+    // It is what freezed recommends.
+    //
+    // ignore: invalid_annotation_target
+    @JsonKey(includeIfNull: false) List<String>? players,
     required String createdBy,
+    required int numberOfWaitListPlayers,
   }) = _Game;
 
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
@@ -37,4 +41,11 @@ class Game with _$Game {
   const Game._();
 
   List<String> get playersNullSafe => players ?? const <String>[];
+
+  /// `Map<String, String | bool>`.
+  Json toSimpleJson() => {
+        ...toJson(),
+        'date': date.toIso8601String(),
+        'booked': booked.toString()
+      };
 }

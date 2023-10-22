@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds the wait list parameter to the game creation.
+
 ## 0.13.0 [2023-10-21]
 
 - Adds google analytics.

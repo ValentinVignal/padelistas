@@ -35,9 +35,14 @@ mixin _$Game {
   @LevelJsonConverter()
   Level get minLevel => throw _privateConstructorUsedError;
   @LevelJsonConverter()
-  Level get maxLevel => throw _privateConstructorUsedError;
+  Level get maxLevel =>
+      throw _privateConstructorUsedError; // It is what freezed recommends.
+//
+// ignore: invalid_annotation_target
+  @JsonKey(includeIfNull: false)
   List<String>? get players => throw _privateConstructorUsedError;
   String get createdBy => throw _privateConstructorUsedError;
+  int get numberOfWaitListPlayers => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,8 +64,9 @@ abstract class $GameCopyWith<$Res> {
       double price,
       @LevelJsonConverter() Level minLevel,
       @LevelJsonConverter() Level maxLevel,
-      List<String>? players,
-      String createdBy});
+      @JsonKey(includeIfNull: false) List<String>? players,
+      String createdBy,
+      int numberOfWaitListPlayers});
 }
 
 /// @nodoc
@@ -87,6 +93,7 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
     Object? maxLevel = null,
     Object? players = freezed,
     Object? createdBy = null,
+    Object? numberOfWaitListPlayers = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -133,6 +140,10 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
+      numberOfWaitListPlayers: null == numberOfWaitListPlayers
+          ? _value.numberOfWaitListPlayers
+          : numberOfWaitListPlayers // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -154,8 +165,9 @@ abstract class _$$GameImplCopyWith<$Res> implements $GameCopyWith<$Res> {
       double price,
       @LevelJsonConverter() Level minLevel,
       @LevelJsonConverter() Level maxLevel,
-      List<String>? players,
-      String createdBy});
+      @JsonKey(includeIfNull: false) List<String>? players,
+      String createdBy,
+      int numberOfWaitListPlayers});
 }
 
 /// @nodoc
@@ -179,6 +191,7 @@ class __$$GameImplCopyWithImpl<$Res>
     Object? maxLevel = null,
     Object? players = freezed,
     Object? createdBy = null,
+    Object? numberOfWaitListPlayers = null,
   }) {
     return _then(_$GameImpl(
       id: null == id
@@ -225,6 +238,10 @@ class __$$GameImplCopyWithImpl<$Res>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
+      numberOfWaitListPlayers: null == numberOfWaitListPlayers
+          ? _value.numberOfWaitListPlayers
+          : numberOfWaitListPlayers // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -242,8 +259,9 @@ class _$GameImpl extends _Game {
       required this.price,
       @LevelJsonConverter() required this.minLevel,
       @LevelJsonConverter() required this.maxLevel,
-      final List<String>? players,
-      required this.createdBy})
+      @JsonKey(includeIfNull: false) final List<String>? players,
+      required this.createdBy,
+      required this.numberOfWaitListPlayers})
       : _players = players,
         super._();
 
@@ -275,8 +293,15 @@ class _$GameImpl extends _Game {
   @override
   @LevelJsonConverter()
   final Level maxLevel;
+// It is what freezed recommends.
+//
+// ignore: invalid_annotation_target
   final List<String>? _players;
+// It is what freezed recommends.
+//
+// ignore: invalid_annotation_target
   @override
+  @JsonKey(includeIfNull: false)
   List<String>? get players {
     final value = _players;
     if (value == null) return null;
@@ -287,10 +312,12 @@ class _$GameImpl extends _Game {
 
   @override
   final String createdBy;
+  @override
+  final int numberOfWaitListPlayers;
 
   @override
   String toString() {
-    return 'Game(id: $id, location: $location, date: $date, duration: $duration, numberOfPlayers: $numberOfPlayers, booked: $booked, price: $price, minLevel: $minLevel, maxLevel: $maxLevel, players: $players, createdBy: $createdBy)';
+    return 'Game(id: $id, location: $location, date: $date, duration: $duration, numberOfPlayers: $numberOfPlayers, booked: $booked, price: $price, minLevel: $minLevel, maxLevel: $maxLevel, players: $players, createdBy: $createdBy, numberOfWaitListPlayers: $numberOfWaitListPlayers)';
   }
 
   @override
@@ -314,7 +341,10 @@ class _$GameImpl extends _Game {
                 other.maxLevel == maxLevel) &&
             const DeepCollectionEquality().equals(other._players, _players) &&
             (identical(other.createdBy, createdBy) ||
-                other.createdBy == createdBy));
+                other.createdBy == createdBy) &&
+            (identical(
+                    other.numberOfWaitListPlayers, numberOfWaitListPlayers) ||
+                other.numberOfWaitListPlayers == numberOfWaitListPlayers));
   }
 
   @JsonKey(ignore: true)
@@ -331,7 +361,8 @@ class _$GameImpl extends _Game {
       minLevel,
       maxLevel,
       const DeepCollectionEquality().hash(_players),
-      createdBy);
+      createdBy,
+      numberOfWaitListPlayers);
 
   @JsonKey(ignore: true)
   @override
@@ -358,8 +389,9 @@ abstract class _Game extends Game {
       required final double price,
       @LevelJsonConverter() required final Level minLevel,
       @LevelJsonConverter() required final Level maxLevel,
-      final List<String>? players,
-      required final String createdBy}) = _$GameImpl;
+      @JsonKey(includeIfNull: false) final List<String>? players,
+      required final String createdBy,
+      required final int numberOfWaitListPlayers}) = _$GameImpl;
   const _Game._() : super._();
 
   factory _Game.fromJson(Map<String, dynamic> json) = _$GameImpl.fromJson;
@@ -388,10 +420,15 @@ abstract class _Game extends Game {
   @override
   @LevelJsonConverter()
   Level get maxLevel;
-  @override
+  @override // It is what freezed recommends.
+//
+// ignore: invalid_annotation_target
+  @JsonKey(includeIfNull: false)
   List<String>? get players;
   @override
   String get createdBy;
+  @override
+  int get numberOfWaitListPlayers;
   @override
   @JsonKey(ignore: true)
   _$$GameImplCopyWith<_$GameImpl> get copyWith =>

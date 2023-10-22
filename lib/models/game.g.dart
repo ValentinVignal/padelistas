@@ -20,21 +20,32 @@ _$GameImpl _$$GameImplFromJson(Map<String, dynamic> json) => _$GameImpl(
       players:
           (json['players'] as List<dynamic>?)?.map((e) => e as String).toList(),
       createdBy: json['createdBy'] as String,
+      numberOfWaitListPlayers: json['numberOfWaitListPlayers'] as int,
     );
 
-Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) =>
-    <String, dynamic>{
-      'location': _$LocationEnumMap[instance.location]!,
-      'date': const DateToTimestampJsonConverter().toJson(instance.date),
-      'duration': instance.duration.inMicroseconds,
-      'numberOfPlayers': instance.numberOfPlayers,
-      'booked': instance.booked,
-      'price': instance.price,
-      'minLevel': const LevelJsonConverter().toJson(instance.minLevel),
-      'maxLevel': const LevelJsonConverter().toJson(instance.maxLevel),
-      'players': instance.players,
-      'createdBy': instance.createdBy,
-    };
+Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) {
+  final val = <String, dynamic>{
+    'location': _$LocationEnumMap[instance.location]!,
+    'date': const DateToTimestampJsonConverter().toJson(instance.date),
+    'duration': instance.duration.inMicroseconds,
+    'numberOfPlayers': instance.numberOfPlayers,
+    'booked': instance.booked,
+    'price': instance.price,
+    'minLevel': const LevelJsonConverter().toJson(instance.minLevel),
+    'maxLevel': const LevelJsonConverter().toJson(instance.maxLevel),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('players', instance.players);
+  val['createdBy'] = instance.createdBy;
+  val['numberOfWaitListPlayers'] = instance.numberOfWaitListPlayers;
+  return val;
+}
 
 const _$LocationEnumMap = {
   Location.marinaSquare: 'marinaSquare',

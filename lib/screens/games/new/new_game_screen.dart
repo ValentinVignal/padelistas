@@ -29,6 +29,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
   var _duration = const Duration(hours: 1, minutes: 30);
 
   final _numberOfPlayersController = TextEditingController(text: '4');
+  final _waitListController = TextEditingController(text: '2');
 
   var _booked = true;
 
@@ -61,6 +62,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
         _date = newDate;
       });
       if (!mounted) return;
+      if (_time != null) return;
       await _pickTime(context);
     }
   }
@@ -76,6 +78,14 @@ class _NewGameScreenState extends State<NewGameScreen> {
         _time = newTime;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _numberOfPlayersController.dispose();
+    _waitListController.dispose();
+    _priceController.dispose();
+    super.dispose();
   }
 
   @override
@@ -107,7 +117,9 @@ class _NewGameScreenState extends State<NewGameScreen> {
                           setState(() {
                             _location = value;
                           });
-                          _pickDate(context);
+                          if (_date == null) {
+                            _pickDate(context);
+                          }
                         },
                         value: _location,
                         hint: const Text('* Location'),
@@ -235,6 +247,26 @@ class _NewGameScreenState extends State<NewGameScreen> {
                     ),
                   ),
                   Expanded(
+                    flex: 2,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text('* Wait list'),
+                      ),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) return 'Required';
+                        if (int.tryParse(value!) == null) {
+                          return 'Invalid number';
+                        }
+
+                        return null;
+                      },
+                      controller: _waitListController,
+                    ),
+                  ),
+                  Expanded(
                     child: InputDecorator(
                       decoration: const InputDecoration(
                         labelText: 'Booked?',
@@ -301,6 +333,8 @@ class _NewGameScreenState extends State<NewGameScreen> {
                         minLevel: _minLevel,
                         maxLevel: _maxLevel,
                         createdBy: userNotifier.value!.id,
+                        numberOfWaitListPlayers:
+                            int.parse(_waitListController.text),
                       );
 
                       await FirebaseFirestore.instance.collection('games').add(
@@ -309,7 +343,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
 
                       FirebaseAnalytics.instance.logEvent(
                         name: 'new_game',
-                        parameters: game.toJson(),
+                        parameters: game.toSimpleJson(),
                       );
                       if (!mounted) return;
 
