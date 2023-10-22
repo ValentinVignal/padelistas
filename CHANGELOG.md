@@ -1,4 +1,4 @@
-## NEXT
+## 0.14.0 [2023-10-22]
 
 - Adds the wait list parameter to the game creation.
 - Displays the wait list in the game tile and game screen.
