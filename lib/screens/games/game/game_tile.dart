@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -38,35 +40,25 @@ class GameTile extends StatelessWidget {
           );
         },
       ),
-      leading: Builder(
-        builder: (context) {
-          final textTheme = DefaultTextStyle.of(context).style;
-          return RichText(
-            text: TextSpan(
-              style: textTheme,
-              children: [
-                TextSpan(text: '${game.playersNullSafe.length}/'),
-                TextSpan(text: game.numberOfPlayers.toString()),
-                const WidgetSpan(child: Icon(Icons.person)),
-              ],
-            ),
-          );
-        },
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '${max(game.playersNullSafe.length, game.numberOfPlayers)}/${game.numberOfPlayers}',
+              ),
+              if (game.numberOfWaitListPlayers > 0)
+                Text(
+                  '${max(game.playersNullSafe.length - game.numberOfPlayers, 0)}/${game.numberOfWaitListPlayers}',
+                ),
+            ],
+          ),
+          const Icon(Icons.person),
+        ],
       ),
-      trailing: Builder(
-        builder: (context) {
-          final textTheme = DefaultTextStyle.of(context).style;
-          return RichText(
-            text: TextSpan(
-              style: textTheme,
-              children: [
-                TextSpan(text: game.price.toString()),
-                const TextSpan(text: ' SGD'),
-              ],
-            ),
-          );
-        },
-      ),
+      trailing: Text('${game.price} SGD'),
       onTap: () {
         GameRoute(id: game.id).push(context);
       },

@@ -48,4 +48,8 @@ class Game with _$Game {
         'date': date.toIso8601String(),
         'booked': booked.toString()
       };
+
+  int get totalNumberOfSpots => numberOfPlayers + numberOfWaitListPlayers;
+
+  bool get isFull => playersNullSafe.length >= totalNumberOfSpots;
 }

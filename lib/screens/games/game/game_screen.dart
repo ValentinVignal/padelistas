@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,6 +9,7 @@ import '../../../models/game.dart';
 import '../../../models/game_provider.dart';
 import '../../../models/user_provider.dart';
 import '../../../services/user_notifier.dart';
+import '../../../utils/iterable_extension.dart';
 
 class GameScreen extends ConsumerStatefulWidget {
   const GameScreen({
@@ -60,8 +62,8 @@ class _GameScreenState extends ConsumerState<GameScreen> {
               ],
             ),
           ),
-          ...game?.playersNullSafe.map(
-                (playerId) {
+          ...game?.playersNullSafe.mapIndexed(
+                (index, playerId) {
                   return Consumer(
                     builder: (context, ref, _) {
                       final user =
@@ -72,8 +74,27 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                       } else {
                         userString = user.fullName;
                       }
-                      return ListTile(
+                      final child = ListTile(
                         title: Text(userString),
+                      );
+                      if (index != game.numberOfPlayers) {
+                        return child;
+                      }
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Expanded(
+                                child: Divider(),
+                              ),
+                              const Text('Wait list'),
+                              const Expanded(
+                                child: Divider(),
+                              ),
+                            ].separated(const SizedBox(width: 8)).toList(),
+                          ),
+                          child,
+                        ],
                       );
                     },
                   );
@@ -81,7 +102,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
               ) ??
               const [],
           if (game != null &&
-              ((game.playersNullSafe.length) < game.numberOfPlayers ||
+              (!game.isFull ||
                   game.playersNullSafe.contains(userNotifier.value!.id))) ...[
             const SizedBox(height: 16),
             ElevatedButton(
@@ -137,7 +158,7 @@ class _SlotsDialogState extends State<_SlotsDialog> {
         widget.game.playersNullSafe.where((id) => id == userID).length;
 
     _value = max(1, alreadyTakenSlots);
-    _max = widget.game.numberOfPlayers -
+    _max = widget.game.totalNumberOfSpots -
         widget.game.playersNullSafe.length +
         alreadyTakenSlots;
   }
