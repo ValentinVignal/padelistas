@@ -1,3 +1,7 @@
+## NEXT 
+
+- Fixes the refresh and stays on the same URL.
+
 ## 0.14.0 [2023-10-22]
 
 - Adds the wait list parameter to the game creation.

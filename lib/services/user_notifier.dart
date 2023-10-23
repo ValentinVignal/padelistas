@@ -9,6 +9,9 @@ import 'auth_user_notifier.dart';
 
 final userNotifier = _getUserNotifier();
 
+final _isUserLoaded = StreamController<bool>.broadcast();
+Stream<bool> get isUserLoaded => _isUserLoaded.stream;
+
 ValueNotifier<User?> _getUserNotifier() {
   final userNotifier = ValueNotifier<User?>(null);
 
@@ -26,7 +29,11 @@ ValueNotifier<User?> _getUserNotifier() {
           .map(
         (snapshot) {
           final data = snapshot.data();
-          if (data == null) return null;
+          if (data == null) {
+            _isUserLoaded.add(false);
+            return null;
+          }
+          _isUserLoaded.add(true);
           return User.fromJsonDocument(snapshot.id, data);
         },
       );

@@ -1,25 +1,31 @@
+import 'dart:async';
+
 import '../services/auth.dart';
 import '../services/user_notifier.dart';
 import '../utils/k_verify_email.dart';
+import '../utils/value_notifier.dart';
 import 'routes.dart';
 
-String? guardRedirect([Uri? uri]) {
+Future<String?> guardRedirect([Uri? uri]) async {
   final firstSegment = uri?.pathSegments.firstOrNull;
   if (firstSegment != null && _whiteListRoutes.contains(firstSegment)) {
     return null;
   }
-  final user = Auth.instance.currentUser;
-  if (user != null) {
+  final authUser = Auth.instance.currentUser;
+  if (authUser != null) {
     if (firstSegment == 'login') {
       return const HomeRoute().location;
     }
-    if (!user.emailVerified && kVerifyEmail) {
+    if (!authUser.emailVerified && kVerifyEmail) {
       if (firstSegment != 'verify-email') {
         return const VerifyEmailRoute().location;
       }
     } else {
       if (firstSegment == 'verify-email') {
         return const HomeRoute().location;
+      }
+      if (userNotifier.value == null) {
+        await userNotifier.waitForValue();
       }
       if (!userNotifier.isProfileSetup) {
         if (firstSegment != 'set-up-profile') {
