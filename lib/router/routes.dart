@@ -13,6 +13,8 @@ import '../screens/sign_up/sign_up.dart';
 import '../screens/users/users_screen.dart';
 import '../screens/verify_email/verify_email_screen.dart';
 import '../screens/waiting_for_approval/waiting_for_approval_screen.dart';
+import '../services/user_notifier.dart';
+import '../utils/value_notifier.dart';
 import 'pages/bottom_sheet_page.dart';
 import 'redirect.dart';
 
@@ -143,6 +145,13 @@ class GameRoute extends GoRouteData {
 @TypedGoRoute<UsersRoute>(path: '/users')
 class UsersRoute extends GoRouteData {
   const UsersRoute();
+
+  @override
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
+    final user = await userNotifier.waitForValue();
+    if (!user.isAdmin) return const HomeRoute().location;
+    return null;
+  }
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
