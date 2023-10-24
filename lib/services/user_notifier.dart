@@ -44,12 +44,12 @@ ValueNotifier<User?> _getUserNotifier() {
           userNotifier.value = user;
         },
         onError: (Object error, StackTrace stackTrace) {
-          if (error is FirebaseException) {
-            if (error.code == 'permission-denied') {
-              // Ignore permission denied errors as it will happen when login
-              // out.
-              return;
-            }
+          if (error
+              .toString()
+              .contains('FirebaseError: [code=permission-denied]')) {
+            // Ignore permission denied errors as it will happen when login
+            // out.
+            return;
           }
           Zone.current.handleUncaughtError(error, stackTrace);
         },
