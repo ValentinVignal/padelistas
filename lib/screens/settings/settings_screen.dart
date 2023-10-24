@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,6 +36,7 @@ class SettingsScreen extends ConsumerWidget {
             Center(
               child: OutlinedButton.icon(
                 onPressed: () {
+                  FirebaseFirestore.instance.waitForPendingWrites();
                   Auth.instance.signOut();
                 },
                 icon: const Icon(Icons.logout),

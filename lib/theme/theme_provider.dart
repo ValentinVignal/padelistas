@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
-import 'package:padelistas/services/settings/settings.dart';
 
 import '../services/isar_provider.dart';
+import '../services/settings/settings.dart';
 
 const _key = 'themeMode';
 

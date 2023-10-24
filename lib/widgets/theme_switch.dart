@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:padelistas/services/isar_provider.dart';
 
+import '../services/isar_provider.dart';
 import '../theme/theme_provider.dart';
 
 class ThemeSwitch extends ConsumerWidget {

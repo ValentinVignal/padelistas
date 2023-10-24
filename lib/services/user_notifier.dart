@@ -21,6 +21,7 @@ ValueNotifier<User?> _getUserNotifier() {
     () async {
       if (!authUserNotifier.isLoggedIn) {
         userNotifier.value = null;
+        return;
       }
       final userStream = FirebaseFirestore.instance
           .collection('users')
@@ -41,6 +42,16 @@ ValueNotifier<User?> _getUserNotifier() {
       userStreamSubscription = userStream.listen(
         (user) {
           userNotifier.value = user;
+        },
+        onError: (Object error, StackTrace stackTrace) {
+          if (error is FirebaseException) {
+            if (error.code == 'permission-denied') {
+              // Ignore permission denied errors as it will happen when login
+              // out.
+              return;
+            }
+          }
+          Zone.current.handleUncaughtError(error, stackTrace);
         },
       );
     },
