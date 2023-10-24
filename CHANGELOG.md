@@ -1,4 +1,4 @@
-## NEXT 
+## 0.15.0 [2023-10-24] 
 
 - Fixes the refresh and stays on the same URL.
 - Only allow the access to the user screen to the admin.
