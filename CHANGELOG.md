@@ -1,3 +1,7 @@
+## NEXT
+
+- Upgrades dependencies.
+
 ## 0.15.0 [2023-10-24] 
 
 - Fixes the refresh and stays on the same URL.
