@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "698083644545",
+    "project_id": "padelistas-dev",
+    "storage_bucket": "padelistas-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698083644545:android:d863753cffc7f7f51ea980",
+        "android_client_info": {
+          "package_name": "com.example.padelistas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-cdeV4j0J-RDvjKTKexik008YcH_Aad8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

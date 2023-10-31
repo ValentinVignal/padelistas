@@ -103,7 +103,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
               const [],
           if (game != null &&
               (!game.isFull ||
-                  game.playersNullSafe.contains(userNotifier.value!.id))) ...[
+                  game.playersNullSafe.contains(userNotifier.user!.id))) ...[
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
@@ -114,7 +114,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                   ),
                 );
                 if (value == null) return;
-                final userId = userNotifier.value!.id;
+                final userId = userNotifier.user!.id;
                 FirebaseFirestore.instance
                     .collection('games')
                     .doc(game.id)
@@ -125,7 +125,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                       .toList(),
                 });
               },
-              child: Text(game.playersNullSafe.contains(userNotifier.value!.id)
+              child: Text(game.playersNullSafe.contains(userNotifier.user!.id)
                   ? 'Update'
                   : 'Join'),
             ),
@@ -153,7 +153,7 @@ class _SlotsDialogState extends State<_SlotsDialog> {
   @override
   void initState() {
     super.initState();
-    final userID = userNotifier.value!.id;
+    final userID = userNotifier.user!.id;
     final alreadyTakenSlots =
         widget.game.playersNullSafe.where((id) => id == userID).length;
 

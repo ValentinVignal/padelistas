@@ -14,7 +14,7 @@ import '../screens/users/users_screen.dart';
 import '../screens/verify_email/verify_email_screen.dart';
 import '../screens/waiting_for_approval/waiting_for_approval_screen.dart';
 import '../services/user_notifier.dart';
-import '../utils/value_notifier.dart';
+import '../utils/value_notifier.dart' hide ValueNotifierExtension;
 import 'pages/bottom_sheet_page.dart';
 import 'redirect.dart';
 
@@ -149,7 +149,7 @@ class UsersRoute extends GoRouteData {
   @override
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
     final user = await userNotifier.waitForValue();
-    if (!user.isAdmin) return const HomeRoute().location;
+    if (!(user?.isAdmin ?? false)) return const HomeRoute().location;
     return null;
   }
 

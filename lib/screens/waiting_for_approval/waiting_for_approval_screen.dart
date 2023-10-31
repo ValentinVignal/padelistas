@@ -45,7 +45,7 @@ class _WaitingForApprovalScreenState
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(loggedInUserProvider);
-    final phoneNumber = user.value?.phoneNumber;
+    final phoneNumber = user.user?.phoneNumber;
     final String phoneNumberText;
     if (phoneNumber == null) {
       phoneNumberText = '';
@@ -54,8 +54,8 @@ class _WaitingForApprovalScreenState
     }
 
     ref.listen(loggedInUserProvider, (previous, next) {
-      if (previous?.value?.phoneNumber != next.value?.phoneNumber) {
-        _phoneNumberController.text = next.value?.phoneNumber ?? '';
+      if (previous?.user?.phoneNumber != next.user?.phoneNumber) {
+        _phoneNumberController.text = next.user?.phoneNumber ?? '';
       }
     });
 

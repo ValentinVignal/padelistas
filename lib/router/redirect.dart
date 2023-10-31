@@ -24,7 +24,7 @@ Future<String?> guardRedirect([Uri? uri]) async {
       if (firstSegment == 'verify-email') {
         return const HomeRoute().location;
       }
-      if (userNotifier.value == null) {
+      if (userNotifier.hasLoaded) {
         await userNotifier.waitForValue();
       }
       if (!userNotifier.isProfileSetup) {
@@ -35,7 +35,7 @@ Future<String?> guardRedirect([Uri? uri]) async {
         if (firstSegment == 'set-up-profile') {
           return const HomeRoute().location;
         }
-        if (!userNotifier.value!.isApprovedNullSafe) {
+        if (!userNotifier.user!.isApprovedNullSafe) {
           if (firstSegment != 'waiting-for-approval') {
             return const WaitingForApprovalRoute().location;
           }

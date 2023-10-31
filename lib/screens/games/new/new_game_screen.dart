@@ -332,7 +332,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
                         price: double.parse(_priceController.text),
                         minLevel: _minLevel,
                         maxLevel: _maxLevel,
-                        createdBy: userNotifier.value!.id,
+                        createdBy: userNotifier.user!.id,
                         numberOfWaitListPlayers:
                             int.parse(_waitListController.text),
                       );

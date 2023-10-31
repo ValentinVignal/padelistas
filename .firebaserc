@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "padelistas-app"
-  }
+    "default": "padelistas-app",
+    "dev": "padelistas-dev",
+    "prod": "padelistas-app"
+  },
+  "targets": {},
+  "etags": {}
 }

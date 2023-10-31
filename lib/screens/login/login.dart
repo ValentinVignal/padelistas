@@ -59,10 +59,17 @@ class __LoginScreenContentState extends State<_LoginScreenContent> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      FirebaseAnalytics.instance.logLogin(loginMethod: 'email');
+      await FirebaseAnalytics.instance.logLogin(loginMethod: 'email');
     } on FirebaseAuthException catch (e) {
       setState(() {
-        _error = e.message ?? 'Unknown error';
+        switch (e.code) {
+          case 'invalid-login-credentials':
+            _error = 'Invalid login credentials';
+            break;
+          default:
+            _error = e.message ?? 'Unknown error';
+            break;
+        }
       });
     } catch (error, stackTrace) {
       _logger.severe(

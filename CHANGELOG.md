@@ -1,6 +1,7 @@
 ## NEXT
 
 - Upgrades dependencies.
+- Sets up a dev firebase environment.
 
 ## 0.15.0 [2023-10-24] 
 

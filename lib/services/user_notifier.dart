@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/user.dart';
+import '../utils/value.dart';
 import 'auth_user_notifier.dart';
 
 final userNotifier = _getUserNotifier();
@@ -12,15 +13,15 @@ final userNotifier = _getUserNotifier();
 final _isUserLoaded = StreamController<bool>.broadcast();
 Stream<bool> get isUserLoaded => _isUserLoaded.stream;
 
-ValueNotifier<User?> _getUserNotifier() {
-  final userNotifier = ValueNotifier<User?>(null);
+ValueNotifier<Value<User>> _getUserNotifier() {
+  final userNotifier = ValueNotifier<Value<User>>(const Value.absent());
 
   StreamSubscription<User?>? userStreamSubscription;
 
   authUserNotifier.addListener(
     () async {
       if (!authUserNotifier.isLoggedIn) {
-        userNotifier.value = null;
+        userNotifier.value = const Value.absent();
         return;
       }
       final userStream = FirebaseFirestore.instance
@@ -41,7 +42,7 @@ ValueNotifier<User?> _getUserNotifier() {
       userStreamSubscription?.cancel();
       userStreamSubscription = userStream.listen(
         (user) {
-          userNotifier.value = user;
+          userNotifier.value = Value(user);
         },
         onError: (Object error, StackTrace stackTrace) {
           if (error
@@ -60,11 +61,14 @@ ValueNotifier<User?> _getUserNotifier() {
 }
 
 final loggedInUserProvider =
-    ChangeNotifierProvider<ValueNotifier<User?>>((ref) {
+    ChangeNotifierProvider<ValueNotifier<Value<User>>>((ref) {
   return userNotifier;
 });
 
-extension UserNotifierExtension on ValueNotifier<User?> {
-  bool get isProfileSetup => value != null;
-  bool get isAdmin => value?.isAdmin ?? false;
+extension UserNotifierExtension on ValueNotifier<Value<User>> {
+  bool get hasLoaded => value.hasValue;
+
+  User? get user => value.value;
+  bool get isProfileSetup => user != null;
+  bool get isAdmin => user?.isAdmin ?? false;
 }
