@@ -2,6 +2,7 @@
 
 - Upgrades dependencies.
 - Sets up a dev firebase environment.
+- Adds environment and contribution documentation.
 
 ## 0.15.0 [2023-10-24] 
 
