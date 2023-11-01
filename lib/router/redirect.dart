@@ -24,7 +24,7 @@ Future<String?> guardRedirect([Uri? uri]) async {
       if (firstSegment == 'verify-email') {
         return const HomeRoute().location;
       }
-      if (userNotifier.hasLoaded) {
+      if (!userNotifier.hasLoaded) {
         await userNotifier.waitForValue();
       }
       if (!userNotifier.isProfileSetup) {

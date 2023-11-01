@@ -24,7 +24,7 @@ extension ValueNotifierExtension<T> on ValueNotifier<T?> {
 extension ValueValueNotifierExtension<T> on ValueNotifier<Value<T>> {
   Future<T?> waitForValue() async {
     if (value.hasValue) return value.value;
-    final completer = Completer<T>();
+    final completer = Completer<T?>();
     void listener() {
       if (value.hasValue) {
         completer.complete(value.value);

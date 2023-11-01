@@ -3,6 +3,7 @@
 - Upgrades dependencies.
 - Sets up a dev firebase environment.
 - Adds environment and contribution documentation.
+- When modifying a game, keep the order of the players.
 
 ## 0.15.0 [2023-10-24] 
 

@@ -115,15 +115,45 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                 );
                 if (value == null) return;
                 final userId = userNotifier.user!.id;
-                FirebaseFirestore.instance
+                var count = 0;
+                var hasRemovedSlots = false;
+                var newPlayers = game.playersNullSafe.where((playerId) {
+                  if (playerId == userId) {
+                    count++;
+                    if (count <= value) {
+                      return true;
+                    } else {
+                      hasRemovedSlots = true;
+                      return false;
+                    }
+                  } else {
+                    return true;
+                  }
+                });
+
+                if (count < value) {
+                  newPlayers = newPlayers.followedBy(
+                    List.generate(value - count, (index) => userId),
+                  );
+                }
+
+                await FirebaseFirestore.instance
                     .collection('games')
                     .doc(game.id)
                     .update({
-                  'players': game.playersNullSafe
-                      .where((id) => id != userId)
-                      .followedBy(List.generate(value, (index) => userId))
-                      .toList(),
+                  'players': newPlayers.toList(),
                 });
+
+                if (hasRemovedSlots && mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'You have removed yourself from some slot in the game. If you were not in the wait-list, send a message on whatsapp\n'
+                        'Either notify the player from the wait-list that will take your place warn the there is now an empty slot in the game.',
+                      ),
+                    ),
+                  );
+                }
               },
               child: Text(game.playersNullSafe.contains(userNotifier.user!.id)
                   ? 'Update'
