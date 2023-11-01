@@ -1,4 +1,4 @@
-## NEXT
+## 0.16.0 [2023-11-02]
 
 - Upgrades dependencies.
 - Sets up a dev firebase environment.
