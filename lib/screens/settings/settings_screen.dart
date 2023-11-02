@@ -38,6 +38,13 @@ class SettingsScreen extends ConsumerWidget {
               ],
             ),
           ),
+          ListTile(
+            title: const Text('About'),
+            onTap: () {
+              const AboutRoute().push(context);
+            },
+            trailing: const Icon(Icons.chevron_right),
+          ),
           if (isLoggedIn) ...[
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),

@@ -13,6 +13,7 @@ List<RouteBase> get $appRoutes => [
       $setUpProfileRoute,
       $waitingForApprovalRoute,
       $settingsRoute,
+      $aboutRoute,
       $gamesRoute,
       $usersRoute,
     ];
@@ -178,6 +179,28 @@ extension $SettingsRouteExtension on SettingsRoute {
 
   String get location => GoRouteData.$location(
         '/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $aboutRoute => GoRouteData.$route(
+      path: '/about',
+      factory: $AboutRouteExtension._fromState,
+    );
+
+extension $AboutRouteExtension on AboutRoute {
+  static AboutRoute _fromState(GoRouterState state) => const AboutRoute();
+
+  String get location => GoRouteData.$location(
+        '/about',
       );
 
   void go(BuildContext context) => context.go(location);

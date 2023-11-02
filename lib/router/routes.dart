@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../screens/about/about_screen.dart';
 import '../screens/games/game/game_screen.dart';
 import '../screens/games/games_screen.dart';
 import '../screens/games/new/new_game_screen.dart';
@@ -95,6 +96,16 @@ class SettingsRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SettingsScreen();
+  }
+}
+
+@TypedGoRoute<AboutRoute>(path: '/about')
+class AboutRoute extends GoRouteData {
+  const AboutRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AboutScreen();
   }
 }
 
