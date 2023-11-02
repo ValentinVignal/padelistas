@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../router/routes.dart';
 import '../../services/auth.dart';
 import '../../services/auth_user_notifier.dart';
+import '../../services/info_plus.dart';
 import '../../utils/bool.dart';
 import '../../widgets/theme_switch.dart';
 
@@ -38,12 +39,9 @@ class SettingsScreen extends ConsumerWidget {
               ],
             ),
           ),
-          ListTile(
-            title: const Text('About'),
-            onTap: () {
-              const AboutRoute().push(context);
-            },
-            trailing: const Icon(Icons.chevron_right),
+          AboutListTile(
+            applicationVersion:
+                ref.watch(infoPlusProvider).valueOrNull?.version ?? '',
           ),
           if (isLoggedIn) ...[
             const Padding(

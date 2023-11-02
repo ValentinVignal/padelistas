@@ -2,6 +2,8 @@
 
 - Adds a home button to the settings page.
 - Adds an about page.
+- Add licenses.
+- Remove the about page and includes everything in the settings page.
 
 ## 0.16.0 [2023-11-02]
 
