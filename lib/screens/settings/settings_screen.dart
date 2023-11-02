@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../router/routes.dart';
 import '../../services/auth.dart';
 import '../../services/auth_user_notifier.dart';
+import '../../utils/bool.dart';
 import '../../widgets/theme_switch.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -14,6 +16,14 @@ class SettingsScreen extends ConsumerWidget {
     final isLoggedIn = ref.watch(loggedInAuthUserProvider).isLoggedIn;
     return Scaffold(
       appBar: AppBar(
+        leading: (!Navigator.of(context).canPop()).nullIfFalse(
+          IconButton(
+            onPressed: () {
+              const HomeRoute().go(context);
+            },
+            icon: const Icon(Icons.home),
+          ),
+        ),
         title: const Text('Settings'),
       ),
       body: ListView(

@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds a home button to the settings page.
+
 ## 0.16.0 [2023-11-02]
 
 - Upgrades dependencies.
