@@ -1,4 +1,4 @@
-## NEXT
+## 0.18.0 [2023-11-04]
 
 - Adds my account screen.
 - Changes game tile to expansion tile.
