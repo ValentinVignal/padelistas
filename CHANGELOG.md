@@ -1,3 +1,7 @@
+## NEXT
+
+- Adds my account screen.
+
 ## 0.17.0 [2023-11-04]
 
 - Adds a home button to the settings page.

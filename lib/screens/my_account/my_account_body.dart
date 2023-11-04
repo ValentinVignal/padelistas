@@ -23,7 +23,12 @@ class MyAccountBody extends ConsumerStatefulWidget {
 }
 
 class _MyAccountBodyState extends ConsumerState<MyAccountBody> {
-  late User user;
+  static const User _emptyUser = User(
+    id: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+  );
 
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -34,27 +39,17 @@ class _MyAccountBodyState extends ConsumerState<MyAccountBody> {
   @override
   void initState() {
     super.initState();
-    user = const User(
-      id: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
+    ref.listenManual(
+      loggedInUserProvider,
+      (previous, next) {
+        final previousUser = previous?.value.value;
+        final nextUser = next.value.value;
+        if (nextUser != null && nextUser != previousUser) {
+          _initTextControllers(nextUser);
+        }
+      },
+      fireImmediately: true,
     );
-    _firstNameController.addListener(() {
-      setState(() {
-        user = user.copyWith(firstName: _firstNameController.text);
-      });
-    });
-    _lastNameController.addListener(() {
-      setState(() {
-        user = user.copyWith(lastName: _lastNameController.text);
-      });
-    });
-    _phoneNumberController.addListener(() {
-      setState(() {
-        user = user.copyWith(phoneNumber: _phoneNumberController.text);
-      });
-    });
   }
 
   @override
@@ -65,13 +60,25 @@ class _MyAccountBodyState extends ConsumerState<MyAccountBody> {
     super.dispose();
   }
 
+  void _initTextControllers(User user) {
+    _firstNameController.text = user.firstName;
+    _lastNameController.text = user.lastName;
+    _phoneNumberController.text = user.phoneNumber;
+  }
+
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     final authUser = authUserNotifier.value!;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(authUser.uid)
-        .set(user.toJson());
+    final user = ref.read(loggedInUserProvider).user ?? _emptyUser;
+    await FirebaseFirestore.instance.collection('users').doc(authUser.uid).set(
+          user
+              .copyWith(
+                firstName: _firstNameController.text,
+                lastName: _lastNameController.text,
+                phoneNumber: _phoneNumberController.text,
+              )
+              .toJson(),
+        );
 
     final method = authUser.providerData
         .map(
@@ -92,15 +99,6 @@ class _MyAccountBodyState extends ConsumerState<MyAccountBody> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(loggedInUserProvider).value;
-    ref.listen(loggedInUserProvider, (previous, next) {
-      final previousUser = previous?.value.value;
-      final nextUser = next.value.value;
-      if (nextUser != null && nextUser != previousUser) {
-        _firstNameController.text = nextUser.firstName;
-        _lastNameController.text = nextUser.lastName;
-        _phoneNumberController.text = nextUser.phoneNumber;
-      }
-    });
     return Form(
       key: _formKey,
       child: ListView(

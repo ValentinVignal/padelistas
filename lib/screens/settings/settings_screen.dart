@@ -7,7 +7,6 @@ import '../../services/auth.dart';
 import '../../services/auth_user_notifier.dart';
 import '../../services/info_plus.dart';
 import '../../utils/bool.dart';
-import '../../widgets/beta_widget.dart';
 import '../../widgets/bottom_navigation.dart';
 import '../../widgets/theme_switch.dart';
 
@@ -37,13 +36,11 @@ class SettingsScreen extends ConsumerWidget {
       body: ListView(
         children: [
           if (!public && isLoggedIn)
-            BetaWidget(
-              child: ListTile(
-                leading: const Icon(Icons.person),
-                onTap: () => const MyAccountRoute().go(context),
-                title: const Text('My account'),
-                trailing: const Icon(Icons.chevron_right),
-              ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              onTap: () => const MyAccountRoute().go(context),
+              title: const Text('My account'),
+              trailing: const Icon(Icons.chevron_right),
             ),
           const ListTile(
             leading: Icon(Icons.contrast),
