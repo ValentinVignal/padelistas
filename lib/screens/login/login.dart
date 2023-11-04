@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        actions: const [SettingsButton()],
+        actions: const [PublicSettingsButton()],
       ),
       body: const _LoginScreenContent(),
     );

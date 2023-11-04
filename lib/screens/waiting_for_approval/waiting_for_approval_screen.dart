@@ -62,7 +62,7 @@ class _WaitingForApprovalScreenState
     return Scaffold(
       appBar: AppBar(
         title: const Text('Waiting for approval'),
-        actions: const [SettingsButton()],
+        actions: const [PublicSettingsButton()],
       ),
       body: Form(
         key: _formKey,

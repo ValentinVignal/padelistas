@@ -10,9 +10,10 @@ List<RouteBase> get $appRoutes => [
       $homeRoute,
       $loginRoute,
       $verifyEmailRoute,
-      $setUpProfileRoute,
       $waitingForApprovalRoute,
+      $setUpProfileRoute,
       $settingsRoute,
+      $publicSettingsRoute,
       $gamesRoute,
       $usersRoute,
     ];
@@ -122,29 +123,6 @@ extension $VerifyEmailRouteExtension on VerifyEmailRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $setUpProfileRoute => GoRouteData.$route(
-      path: '/set-up-profile',
-      factory: $SetUpProfileRouteExtension._fromState,
-    );
-
-extension $SetUpProfileRouteExtension on SetUpProfileRoute {
-  static SetUpProfileRoute _fromState(GoRouterState state) =>
-      const SetUpProfileRoute();
-
-  String get location => GoRouteData.$location(
-        '/set-up-profile',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
 RouteBase get $waitingForApprovalRoute => GoRouteData.$route(
       path: '/waiting-for-approval',
       factory: $WaitingForApprovalRouteExtension._fromState,
@@ -168,9 +146,38 @@ extension $WaitingForApprovalRouteExtension on WaitingForApprovalRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $setUpProfileRoute => GoRouteData.$route(
+      path: '/set-up-profile',
+      factory: $SetUpProfileRouteExtension._fromState,
+    );
+
+extension $SetUpProfileRouteExtension on SetUpProfileRoute {
+  static SetUpProfileRoute _fromState(GoRouterState state) =>
+      const SetUpProfileRoute();
+
+  String get location => GoRouteData.$location(
+        '/set-up-profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $settingsRoute => GoRouteData.$route(
       path: '/settings',
       factory: $SettingsRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'my-account',
+          factory: $MyAccountRouteExtension._fromState,
+        ),
+      ],
     );
 
 extension $SettingsRouteExtension on SettingsRoute {
@@ -178,6 +185,47 @@ extension $SettingsRouteExtension on SettingsRoute {
 
   String get location => GoRouteData.$location(
         '/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $MyAccountRouteExtension on MyAccountRoute {
+  static MyAccountRoute _fromState(GoRouterState state) =>
+      const MyAccountRoute();
+
+  String get location => GoRouteData.$location(
+        '/settings/my-account',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $publicSettingsRoute => GoRouteData.$route(
+      path: '/public-settings',
+      factory: $PublicSettingsRouteExtension._fromState,
+    );
+
+extension $PublicSettingsRouteExtension on PublicSettingsRoute {
+  static PublicSettingsRoute _fromState(GoRouterState state) =>
+      const PublicSettingsRoute();
+
+  String get location => GoRouteData.$location(
+        '/public-settings',
       );
 
   void go(BuildContext context) => context.go(location);

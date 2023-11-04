@@ -12,7 +12,7 @@ class PhoneNumberFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: const InputDecoration(label: Text('Phone number')),
+      decoration: const InputDecoration(label: Text('* Phone number')),
       controller: _phoneNumberController,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'(\+|[0-9])')),

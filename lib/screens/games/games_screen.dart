@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 
 import '../../models/games_provider.dart';
 import '../../router/routes.dart';
-import '../../services/user_notifier.dart';
 import '../../utils/date.dart';
+import '../../widgets/bottom_navigation.dart';
 import 'game/game_tile.dart';
 
 class GamesScreen extends ConsumerWidget {
@@ -17,7 +17,6 @@ class GamesScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Games'),
-        actions: const [_MoreButton()],
       ),
       body: ListView.builder(
         itemCount: games.length,
@@ -37,53 +36,7 @@ class GamesScreen extends ConsumerWidget {
         },
       ),
       floatingActionButton: const _FAB(),
-    );
-  }
-}
-
-enum _MoreButtonValue {
-  usersToApprove,
-  settings,
-}
-
-class _MoreButton extends ConsumerWidget {
-  const _MoreButton();
-
-  void _onSelected(BuildContext context, _MoreButtonValue value) {
-    switch (value) {
-      case _MoreButtonValue.usersToApprove:
-        const UsersRoute().push(context);
-        break;
-      case _MoreButtonValue.settings:
-        const SettingsRoute().push(context);
-        break;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isAdmin = ref.watch(loggedInUserProvider).isAdmin;
-    return PopupMenuButton(
-      onSelected: (value) => _onSelected(context, value),
-      itemBuilder: (context) {
-        return [
-          if (isAdmin)
-            const PopupMenuItem(
-              value: _MoreButtonValue.usersToApprove,
-              child: ListTile(
-                leading: Icon(Icons.people),
-                title: Text('Users'),
-              ),
-            ),
-          const PopupMenuItem(
-            value: _MoreButtonValue.settings,
-            child: ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-            ),
-          ),
-        ];
-      },
+      bottomNavigationBar: const BottomNavigation(),
     );
   }
 }

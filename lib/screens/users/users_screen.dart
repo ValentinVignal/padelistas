@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/user.dart';
 import '../../models/users_provider.dart';
+import '../../widgets/bottom_navigation.dart';
 
 enum _UserOption {
   approve,
@@ -90,6 +91,7 @@ class UsersScreen extends ConsumerWidget {
           );
         },
       ),
+      bottomNavigationBar: const BottomNavigation(),
     );
   }
 }

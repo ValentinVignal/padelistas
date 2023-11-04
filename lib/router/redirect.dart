@@ -8,40 +8,40 @@ import 'routes.dart';
 
 Future<String?> guardRedirect([Uri? uri]) async {
   final firstSegment = uri?.pathSegments.firstOrNull;
-  if (firstSegment != null && _whiteListRoutes.contains(firstSegment)) {
-    return null;
-  }
   final authUser = Auth.instance.currentUser;
   if (authUser != null) {
-    if (firstSegment == 'login') {
+    // The user is logged in.
+    if (firstSegment == LoginRoute.path) {
       return const HomeRoute().location;
     }
     if (!authUser.emailVerified && kVerifyEmail) {
-      if (firstSegment != 'verify-email') {
+      if (!const {VerifyEmailRoute.path, PublicSettingsRoute.path}
+          .contains(firstSegment)) {
         return const VerifyEmailRoute().location;
       }
     } else {
-      if (firstSegment == 'verify-email') {
+      if (firstSegment == VerifyEmailRoute.path) {
         return const HomeRoute().location;
       }
       if (!userNotifier.hasLoaded) {
         await userNotifier.waitForValue();
       }
       if (!userNotifier.isProfileSetup) {
-        if (firstSegment != 'set-up-profile') {
+        if (!const {SetUpProfileRoute.path, PublicSettingsRoute.path}
+            .contains(firstSegment)) {
           return const SetUpProfileRoute().location;
         }
       } else {
-        if (firstSegment == 'set-up-profile') {
-          return const HomeRoute().location;
-        }
         if (!userNotifier.user!.isApprovedNullSafe) {
-          if (firstSegment != 'waiting-for-approval') {
+          if (!const {WaitingForApprovalRoute.path, PublicSettingsRoute.path}
+              .contains(firstSegment)) {
             return const WaitingForApprovalRoute().location;
           }
         } else {
-          if (firstSegment == 'waiting-for-approval') {
+          if (firstSegment == WaitingForApprovalRoute.path) {
             return const HomeRoute().location;
+          } else if (firstSegment == PublicSettingsRoute.path) {
+            return const SettingsRoute().location;
           }
         }
       }
@@ -50,7 +50,8 @@ Future<String?> guardRedirect([Uri? uri]) async {
       return const GamesRoute().location;
     }
   } else {
-    if (firstSegment != 'login') {
+    // The user is not logged in.
+    if (!_unauthenticatedRoutes.contains(firstSegment)) {
       return const LoginRoute().location;
     } else {
       return null;
@@ -59,7 +60,8 @@ Future<String?> guardRedirect([Uri? uri]) async {
   return null;
 }
 
-/// Routes that are accessible when logged in or not.
-final _whiteListRoutes = {
-  'settings',
+/// Routes that you can access when you are not authenticated
+const _unauthenticatedRoutes = {
+  LoginRoute.path,
+  PublicSettingsRoute.path,
 };

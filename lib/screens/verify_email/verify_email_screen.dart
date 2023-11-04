@@ -44,7 +44,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       appBar: AppBar(
         title: const Text('Verify your email'),
         actions: const [
-          SettingsButton(),
+          PublicSettingsButton(),
         ],
       ),
       body: ListView(
