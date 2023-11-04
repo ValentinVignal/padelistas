@@ -1,6 +1,7 @@
 ## NEXT
 
 - Adds my account screen.
+- Changes game tile to expansion tile.
 
 ## 0.17.0 [2023-11-04]
 
