@@ -228,9 +228,10 @@ class _EditButtons extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           if (text != null)
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () => _join(context),
-              child: Text(text),
+              icon: const Icon(Icons.person),
+              label: Text(text),
             ),
           if (game.createdBy == user.id)
             ElevatedButton.icon(
