@@ -1,3 +1,7 @@
+## NEXT
+
+- Edits a game.
+
 ## 0.18.0 [2023-11-04]
 
 - Adds my account screen.

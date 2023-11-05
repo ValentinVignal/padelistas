@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../models/game.dart';
 import '../../../models/location.dart';
 import '../../../models/user_provider.dart';
+import '../../../router/routes.dart';
 import '../../../services/user_notifier.dart';
 import '../../../utils/duration.dart';
 import '../../../utils/iterable_extension.dart';
@@ -62,7 +63,7 @@ class GameTile extends StatelessWidget {
       children: [
         _Creator(game: game),
         _Players(game: game),
-        _JoinButton(game: game)
+        _EditButtons(game: game)
       ],
     );
   }
@@ -148,8 +149,8 @@ class _Players extends ConsumerWidget {
   }
 }
 
-class _JoinButton extends ConsumerWidget {
-  const _JoinButton({
+class _EditButtons extends ConsumerWidget {
+  const _EditButtons({
     required this.game,
   });
 
@@ -203,25 +204,41 @@ class _JoinButton extends ConsumerWidget {
     }
   }
 
+  void _edit(BuildContext context) {
+    GameRoute(id: game.id).go(context);
+  }
+
   final Game game;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(loggedInUserProvider).user;
     if (user == null) return const SizedBox.shrink();
-    final String text;
+    final String? text;
     if (game.playersNullSafe.contains(user.id)) {
       text = 'Update';
     } else if (game.isFull) {
-      return const SizedBox.shrink();
+      text = null;
     } else {
       text = 'Join';
     }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: () => _join(context),
-        child: Text(text),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          if (text != null)
+            ElevatedButton(
+              onPressed: () => _join(context),
+              child: Text(text),
+            ),
+          if (game.createdBy == user.id)
+            ElevatedButton.icon(
+              onPressed: () => _edit(context),
+              icon: const Icon(Icons.edit),
+              label: const Text('Edit'),
+            ),
+        ].separated(const SizedBox(width: 8)).toList(),
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../screens/games/game/game_screen.dart';
 import '../screens/games/games_screen.dart';
-import '../screens/games/new/new_game_screen.dart';
 import '../screens/login/login.dart';
 import '../screens/my_account/my_account_screen.dart';
 import '../screens/set_up_profile/set_up_profile_screen.dart';
@@ -168,7 +167,9 @@ class NewGameRoute extends GoRouteData {
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return BottomSheetPage(
       key: state.pageKey,
-      child: const NewGameScreen(),
+      child: const GameScreen(
+        id: null,
+      ),
     );
   }
 }
