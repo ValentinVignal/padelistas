@@ -13,7 +13,6 @@ import '../../../services/user_notifier.dart';
 import '../../../utils/bool.dart';
 import '../../../utils/duration.dart';
 import '../../../utils/iterable_extension.dart';
-import '../../../widgets/beta_widget.dart';
 
 class GameScreen extends ConsumerStatefulWidget {
   const GameScreen({
@@ -129,7 +128,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   }
 
   Future<void> _onSave() async {
-    // TODO: Make it work with edit
     if (!_formKey.currentState!.validate()) return;
     if (widget.id == null) {
       final game = Game(
@@ -417,19 +415,26 @@ class _GameScreenState extends ConsumerState<GameScreen> {
               Row(
                 children: [
                   if (widget.id != null)
-                    BetaWidget(
-                      child: OutlinedButton.icon(
-                        onPressed: () {
-                          // TODO
-                        },
-                        style: ButtonStyle(
-                          foregroundColor: MaterialStatePropertyAll(
-                            Theme.of(context).colorScheme.error,
-                          ),
+                    OutlinedButton.icon(
+                      onPressed: () async {
+                        await FirebaseFirestore.instance
+                            .collection('games')
+                            .doc(widget.id!)
+                            .delete();
+                        if (!mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Deleted')),
+                        );
+
+                        Navigator.of(context).pop();
+                      },
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(
+                          Theme.of(context).colorScheme.error,
                         ),
-                        icon: const Icon(Icons.delete),
-                        label: const Text('Delete'),
                       ),
+                      icon: const Icon(Icons.delete),
+                      label: const Text('Delete'),
                     ),
                   const Spacer(),
                   OutlinedButton.icon(

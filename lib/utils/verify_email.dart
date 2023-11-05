@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../services/env.dart';
+
 /// Whether or not the email should be verified before logging in.
-const kVerifyEmail = !kDebugMode;
+final verifyEmail = !(kDebugMode || env == Env.dev);

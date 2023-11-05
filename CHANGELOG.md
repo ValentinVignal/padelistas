@@ -1,6 +1,8 @@
 ## NEXT
 
 - Edits a game.
+- Don't verify emails in dev.
+- Adds a delete game button.
 
 ## 0.18.0 [2023-11-04]
 

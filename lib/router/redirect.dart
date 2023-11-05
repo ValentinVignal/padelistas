@@ -2,8 +2,8 @@ import 'dart:async';
 
 import '../services/auth.dart';
 import '../services/user_notifier.dart';
-import '../utils/k_verify_email.dart';
 import '../utils/value_notifier.dart';
+import '../utils/verify_email.dart';
 import 'routes.dart';
 
 Future<String?> guardRedirect([Uri? uri]) async {
@@ -14,7 +14,7 @@ Future<String?> guardRedirect([Uri? uri]) async {
     if (firstSegment == LoginRoute.path) {
       return const HomeRoute().location;
     }
-    if (!authUser.emailVerified && kVerifyEmail) {
+    if (!authUser.emailVerified && verifyEmail) {
       if (!const {VerifyEmailRoute.path, PublicSettingsRoute.path}
           .contains(firstSegment)) {
         return const VerifyEmailRoute().location;
