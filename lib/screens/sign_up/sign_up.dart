@@ -1,6 +1,7 @@
 import 'package:animated_collection/animated_collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
@@ -92,6 +93,10 @@ class _SignUpScreenContentState extends State<_SignUpScreenContent> {
       key: _formKey,
       child: ListView(
         children: <Widget>[
+          SvgPicture.asset(
+            'assets/logo.svg',
+            height: 120,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextFormField(

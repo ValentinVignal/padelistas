@@ -1,6 +1,7 @@
 ## NEXT
 
-- Uses own favicon
+- Uses own favicon.
+- Adds logo to login and sign up screens.
 
 ## 0.19.0 [2023-11-05]
 
