@@ -1,3 +1,7 @@
+## NEXT
+
+- Uses own favicon
+
 ## 0.19.0 [2023-11-05]
 
 - Edits a game.
