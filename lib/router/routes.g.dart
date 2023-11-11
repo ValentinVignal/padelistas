@@ -276,10 +276,24 @@ RouteBase get $gamesRoute => GoRouteData.$route(
     );
 
 extension $GamesRouteExtension on GamesRoute {
-  static GamesRoute _fromState(GoRouterState state) => const GamesRoute();
+  static GamesRoute _fromState(GoRouterState state) => GamesRoute(
+        creator:
+            state.uri.queryParametersAll['creator']?.map((e) => e).toSet() ??
+                const {},
+        player: state.uri.queryParametersAll['player']?.map((e) => e).toSet() ??
+            const {},
+        all: _$convertMapValue(
+                'all', state.uri.queryParameters, _$boolConverter) ??
+            false,
+      );
 
   String get location => GoRouteData.$location(
         '/games',
+        queryParams: {
+          if (creator != const {}) 'creator': creator.map((e) => e).toList(),
+          if (player != const {}) 'player': player.map((e) => e).toList(),
+          if (all != false) 'all': all.toString(),
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -326,6 +340,17 @@ extension $GameRouteExtension on GameRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+bool _$boolConverter(String value) {
+  switch (value) {
+    case 'true':
+      return true;
+    case 'false':
+      return false;
+    default:
+      throw UnsupportedError('Cannot convert "$value" into a bool.');
+  }
 }
 
 RouteBase get $usersRoute => GoRouteData.$route(

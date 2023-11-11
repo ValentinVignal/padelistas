@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../screens/games/filters/all_games_filter_provider.dart';
+import '../screens/games/filters/creator_filter_provider.dart';
+import '../screens/games/filters/player_filter_provider.dart';
 import '../screens/games/game/game_screen.dart';
 import '../screens/games/games_screen.dart';
 import '../screens/login/login.dart';
@@ -18,6 +22,7 @@ import '../services/user_notifier.dart';
 import '../utils/value_notifier.dart' hide ValueNotifierExtension;
 import 'pages/bottom_sheet_page.dart';
 import 'redirect.dart';
+import 'route_parameters.dart';
 
 part 'routes.g.dart';
 
@@ -161,13 +166,36 @@ class MyAccountRoute extends GoRouteData {
   ],
 )
 class GamesRoute extends GoRouteData {
-  const GamesRoute();
+  const GamesRoute({
+    this.creator = const {},
+    this.player = const {},
+    this.all = false,
+  });
+
+  factory GamesRoute.fromParameters(GamesRouteParameters parameters) {
+    return GamesRoute(
+      creator: parameters.creator,
+      player: parameters.player,
+      all: parameters.all,
+    );
+  }
+
+  final Set<String> creator;
+  final Set<String> player;
+  final bool all;
 
   static const path = 'games';
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const GamesScreen();
+    return ProviderScope(
+      overrides: [
+        creatorFilterProvider.overrideWithValue(creator),
+        playerFilterProvider.overrideWithValue(player),
+        allGamesFilterProvider.overrideWithValue(all),
+      ],
+      child: const GamesScreen(),
+    );
   }
 }
 

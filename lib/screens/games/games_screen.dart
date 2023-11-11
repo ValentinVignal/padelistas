@@ -6,6 +6,7 @@ import '../../models/games_provider.dart';
 import '../../router/routes.dart';
 import '../../utils/date.dart';
 import '../../widgets/bottom_navigation.dart';
+import 'filters/games_filters_drawer.dart';
 import 'game/game_tile.dart';
 
 class GamesScreen extends ConsumerWidget {
@@ -18,6 +19,7 @@ class GamesScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Games'),
       ),
+      endDrawer: const GamesFiltersDrawer(),
       body: ListView.builder(
         itemCount: games.length,
         itemBuilder: (context, index) {
