@@ -1,6 +1,7 @@
 ## NEXT
 
 - Show a snack bar when the user request a new email to verify his email.
+- Adds the reset password page.
 
 ## 0.20.0 [2023-11-06]
 

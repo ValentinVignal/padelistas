@@ -7,6 +7,7 @@ import '../screens/games/game/game_screen.dart';
 import '../screens/games/games_screen.dart';
 import '../screens/login/login.dart';
 import '../screens/my_account/my_account_screen.dart';
+import '../screens/reset_password/reset_password_screen.dart';
 import '../screens/set_up_profile/set_up_profile_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../screens/sign_up/sign_up.dart';
@@ -34,6 +35,7 @@ class HomeRoute extends GoRouteData {
   path: '/${LoginRoute.path}',
   routes: [
     TypedGoRoute<SignUpRoute>(path: 'sign-up'),
+    TypedGoRoute<ResetPasswordRoute>(path: 'reset-password'),
   ],
 )
 class LoginRoute extends GoRouteData {
@@ -57,6 +59,15 @@ class SignUpRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SignUpScreen();
+  }
+}
+
+class ResetPasswordRoute extends GoRouteData {
+  const ResetPasswordRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ResetPasswordScreen();
   }
 }
 

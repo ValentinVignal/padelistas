@@ -48,6 +48,10 @@ RouteBase get $loginRoute => GoRouteData.$route(
           path: 'sign-up',
           factory: $SignUpRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'reset-password',
+          factory: $ResetPasswordRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -79,6 +83,24 @@ extension $SignUpRouteExtension on SignUpRoute {
 
   String get location => GoRouteData.$location(
         '/login/sign-up',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ResetPasswordRouteExtension on ResetPasswordRoute {
+  static ResetPasswordRoute _fromState(GoRouterState state) =>
+      const ResetPasswordRoute();
+
+  String get location => GoRouteData.$location(
+        '/login/reset-password',
       );
 
   void go(BuildContext context) => context.go(location);

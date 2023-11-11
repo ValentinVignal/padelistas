@@ -158,6 +158,14 @@ class __LoginScreenContentState extends State<_LoginScreenContent> {
               child: const Text('Sign Up'),
             ),
           ),
+          Center(
+            child: TextButton(
+              onPressed: () {
+                GoRouter.of(context).go(const ResetPasswordRoute().location);
+              },
+              child: const Text('Forgot password?'),
+            ),
+          ),
         ].separated(const SizedBox(height: 8)).toList(),
       ),
     );
