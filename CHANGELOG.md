@@ -2,8 +2,9 @@
 
 - Updates the dependencies.
 - Adds game filters.
+- Displays the loading and error states in the game list.
 
-## 0.21.0 [2023-11-07]
+## 0.21.0 [2023-11-11]
 
 - Shows a snack bar when the user request a new email to verify his email.
 - Adds the reset password page.

@@ -6,6 +6,7 @@ import '../../models/games_provider.dart';
 import '../../router/routes.dart';
 import '../../utils/date.dart';
 import '../../widgets/bottom_navigation.dart';
+import '../../widgets/error_widget.dart';
 import 'filters/games_filters_drawer.dart';
 import 'game/game_tile.dart';
 
@@ -14,29 +15,39 @@ class GamesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final games = ref.watch(gamesProvider).valueOrNull ?? const [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Games'),
       ),
       endDrawer: const GamesFiltersDrawer(),
-      body: ListView.builder(
-        itemCount: games.length,
-        itemBuilder: (context, index) {
-          final game = games[index];
-          final tile = GameTile(game: game);
-          if (index == 0 || !games[index - 1].date.isSameDayAs(game.date)) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _DateHeader(date: game.date),
-                tile,
-              ],
-            );
-          }
-          return tile;
-        },
-      ),
+      body: ref.watch(gamesProvider).when(
+            error: (error, stackTrace) => Center(
+              child: CustomErrorWidget(error: error, stackTrace: stackTrace),
+            ),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            data: (games) {
+              return ListView.builder(
+                itemCount: games.length,
+                itemBuilder: (context, index) {
+                  final game = games[index];
+                  final tile = GameTile(game: game);
+                  if (index == 0 ||
+                      !games[index - 1].date.isSameDayAs(game.date)) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _DateHeader(date: game.date),
+                        tile,
+                      ],
+                    );
+                  }
+                  return tile;
+                },
+              );
+            },
+          ),
       floatingActionButton: const _FAB(),
       bottomNavigationBar: const BottomNavigation(),
     );
