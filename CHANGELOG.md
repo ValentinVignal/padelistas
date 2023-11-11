@@ -1,4 +1,4 @@
-## NEXT
+## 0.22.0 [2023-11-11]
 
 - Updates the dependencies.
 - Adds game filters.
