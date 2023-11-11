@@ -3,6 +3,7 @@
 - Updates the dependencies.
 - Adds game filters.
 - Displays the loading and error states in the game list.
+- Creates the indexes for games.
 
 ## 0.21.0 [2023-11-11]
 

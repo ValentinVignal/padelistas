@@ -1,4 +1,51 @@
 {
-  "indexes": [],
-  "fieldOverrides": []
+  "fieldOverrides": [],
+  "indexes": [
+    {
+      "collectionGroup": "games",
+      "fields": [
+        {
+          "fieldPath": "createdBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ],
+      "queryScope": "COLLECTION"
+    },
+    {
+      "collectionGroup": "games",
+      "fields": [
+        {
+          "arrayConfig": "CONTAINS",
+          "fieldPath": "players"
+        },
+        {
+          "fieldPath": "createdBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ],
+      "queryScope": "COLLECTION"
+    },
+    {
+      "collectionGroup": "games",
+      "fields": [
+        {
+          "arrayConfig": "CONTAINS",
+          "fieldPath": "players"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        }
+      ],
+      "queryScope": "COLLECTION"
+    }
+  ]
 }
