@@ -1,6 +1,10 @@
+## NEXT
+
+- Updates the dependencies.
+
 ## 0.21.0 [2023-11-07]
 
-- Show a snack bar when the user request a new email to verify his email.
+- Shows a snack bar when the user request a new email to verify his email.
 - Adds the reset password page.
 
 ## 0.20.0 [2023-11-06]
