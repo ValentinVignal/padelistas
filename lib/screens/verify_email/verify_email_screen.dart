@@ -80,6 +80,12 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 });
                 try {
                   await Auth.instance.currentUser!.sendEmailVerification();
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Email sent'),
+                    ),
+                  );
                 } catch (error, stackTrace) {
                   _logger.severe(
                     'Could not send the email verification',

@@ -1,3 +1,7 @@
+## NEXT
+
+- Show a snack bar when the user request a new email to verify his email.
+
 ## 0.20.0 [2023-11-06]
 
 - Uses own favicon.
