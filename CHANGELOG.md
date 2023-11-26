@@ -1,6 +1,7 @@
 ## NEXT
 
 - Upgrades dependencies.
+- Adds a simple rail.
 
 ## 0.22.0 [2023-11-11]
 
