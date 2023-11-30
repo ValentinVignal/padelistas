@@ -1,4 +1,4 @@
-## NEXT
+## 0.23.0 [2023-11-30]
 
 - Upgrades dependencies.
 - Adds a simple rail.
