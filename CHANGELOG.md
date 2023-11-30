@@ -3,6 +3,7 @@
 - Upgrades dependencies.
 - Adds a simple rail.
 - Adds a reactive navigation rail and bottom navigation bar.
+- Uses dropdown to select the time of the game to restrict the input.
 
 ## 0.22.0 [2023-11-11]
 

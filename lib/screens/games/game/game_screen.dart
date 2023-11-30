@@ -14,6 +14,15 @@ import '../../../utils/bool.dart';
 import '../../../utils/duration.dart';
 import '../../../utils/iterable_extension.dart';
 
+final _possibleTimes = [
+  for (var time = const TimeOfDay(hour: 6, minute: 0);
+      time.hour < 22;
+      time = time.replacing(
+          hour: time.minute == 45 ? time.hour + 1 : time.hour,
+          minute: time.minute == 45 ? 0 : time.minute + 15))
+    time,
+];
+
 class GameScreen extends ConsumerStatefulWidget {
   const GameScreen({
     required this.id,
@@ -70,20 +79,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       });
       if (!mounted) return;
       if (_time != null) return;
-      await _pickTime(context);
-    }
-  }
-
-  Future<void> _pickTime(BuildContext context) async {
-    final newTime = await showTimePicker(
-      context: context,
-      initialTime: _time ?? TimeOfDay.now(),
-    );
-
-    if (newTime != null) {
-      setState(() {
-        _time = newTime;
-      });
     }
   }
 
@@ -202,7 +197,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
   Widget build(BuildContext context) {
     final dateText =
         _date == null ? '* Date' : DateFormat.yMMMd().format(_date!);
-    final timeText = _time?.format(context) ?? '* Time';
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Form(
@@ -266,23 +260,26 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                             ),
                           ),
                           Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                _pickTime(context);
+                            child: DropdownButtonFormField(
+                              validator: (value) {
+                                if (value == null) return 'Required';
+                                return null;
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.schedule),
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(timeText),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              isExpanded: true,
+                              onChanged: (value) {
+                                setState(() {
+                                  _time = value;
+                                });
+                              },
+                              value: _time,
+                              hint: const Text('* Time'),
+                              icon: const Icon(Icons.schedule),
+                              items: _possibleTimes
+                                  .map((time) => DropdownMenuItem(
+                                        value: time,
+                                        child: Text(time.format(context)),
+                                      ))
+                                  .toList(),
                             ),
                           ),
                         ],
