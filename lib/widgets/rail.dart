@@ -1,3 +1,4 @@
+import 'package:animated_collection/animated_collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,12 +6,48 @@ import 'package:go_router/go_router.dart';
 
 import '../router/routes.dart';
 import '../services/user_notifier.dart';
+import '../utils/media.dart';
 
 class _RailKey extends Key with EquatableMixin {
   const _RailKey() : super.empty();
 
   @override
   List<Object?> get props => const [];
+}
+
+class RailWrapper extends StatelessWidget {
+  const RailWrapper({
+    required this.child,
+    this.alwaysHide = false,
+    super.key,
+  });
+
+  final Widget child;
+
+  /// If true, always hide the rail. This is useful for screens that are public.
+  final bool alwaysHide;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        AnimatedVisibility(
+          axis: Axis.horizontal,
+          visible: !alwaysHide && !context.isSmallScreen,
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Rail(),
+              VerticalDivider(),
+            ],
+          ),
+        ),
+        Expanded(
+          child: child,
+        ),
+      ],
+    );
+  }
 }
 
 class Rail extends ConsumerWidget {
@@ -44,6 +81,7 @@ class Rail extends ConsumerWidget {
       tag: const _RailKey(),
       child: NavigationRail(
         selectedIndex: currentIndex,
+        labelType: NavigationRailLabelType.selected,
         onDestinationSelected: (index) {
           final effectiveIndex = isAdmin ? index : index + 1;
           assert(effectiveIndex >= 0 && effectiveIndex <= 2);

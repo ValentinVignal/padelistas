@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/user.dart';
 import '../../models/users_provider.dart';
 import '../../widgets/bottom_navigation.dart';
+import '../../widgets/rail.dart';
 
 enum _UserOption {
   approve,
@@ -37,59 +38,61 @@ class UsersScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('User'),
       ),
-      body: ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          final theme = Theme.of(context);
-          final user = users[index];
-          final IconData icon;
-          final Color color;
-          switch (user.isApproved) {
-            case null:
-              icon = Icons.question_mark;
-              color = theme.colorScheme.error;
-            case false:
-              icon = Icons.close;
-              color = theme.colorScheme.error;
-            case true:
-              icon = Icons.check;
-              color = theme.colorScheme.secondary;
-          }
-          return ListTile(
-            leading: Icon(
-              icon,
-              color: color,
-            ),
-            title: Row(
-              children: [
-                if (user.isAdmin) const Icon(Icons.admin_panel_settings),
-                Flexible(
-                  child: SelectableText(user.fullName),
-                ),
-              ],
-            ),
-            subtitle: SelectableText(user.phoneNumber),
-            trailing: PopupMenuButton(
-              onSelected: (value) => _onSelected(context, user, value),
-              itemBuilder: (context) => const [
-                PopupMenuItem(
-                  value: _UserOption.approve,
-                  child: ListTile(
-                    leading: Icon(Icons.check),
-                    title: Text('Approve'),
+      body: RailWrapper(
+        child: ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (context, index) {
+            final theme = Theme.of(context);
+            final user = users[index];
+            final IconData icon;
+            final Color color;
+            switch (user.isApproved) {
+              case null:
+                icon = Icons.question_mark;
+                color = theme.colorScheme.error;
+              case false:
+                icon = Icons.close;
+                color = theme.colorScheme.error;
+              case true:
+                icon = Icons.check;
+                color = theme.colorScheme.secondary;
+            }
+            return ListTile(
+              leading: Icon(
+                icon,
+                color: color,
+              ),
+              title: Row(
+                children: [
+                  if (user.isAdmin) const Icon(Icons.admin_panel_settings),
+                  Flexible(
+                    child: SelectableText(user.fullName),
                   ),
-                ),
-                PopupMenuItem(
-                  value: _UserOption.disapprove,
-                  child: ListTile(
-                    leading: Icon(Icons.close),
-                    title: Text('Disapprove'),
+                ],
+              ),
+              subtitle: SelectableText(user.phoneNumber),
+              trailing: PopupMenuButton(
+                onSelected: (value) => _onSelected(context, user, value),
+                itemBuilder: (context) => const [
+                  PopupMenuItem(
+                    value: _UserOption.approve,
+                    child: ListTile(
+                      leading: Icon(Icons.check),
+                      title: Text('Approve'),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                  PopupMenuItem(
+                    value: _UserOption.disapprove,
+                    child: ListTile(
+                      leading: Icon(Icons.close),
+                      title: Text('Disapprove'),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
       bottomNavigationBar: const BottomNavigation(),
     );

@@ -7,6 +7,7 @@ import '../../router/routes.dart';
 import '../../utils/date.dart';
 import '../../widgets/bottom_navigation.dart';
 import '../../widgets/error_widget.dart';
+import '../../widgets/rail.dart';
 import 'filters/games_filters_drawer.dart';
 import 'game/game_tile.dart';
 
@@ -20,34 +21,36 @@ class GamesScreen extends ConsumerWidget {
         title: const Text('Games'),
       ),
       endDrawer: const GamesFiltersDrawer(),
-      body: ref.watch(gamesProvider).when(
-            error: (error, stackTrace) => Center(
-              child: CustomErrorWidget(error: error, stackTrace: stackTrace),
+      body: RailWrapper(
+        child: ref.watch(gamesProvider).when(
+              error: (error, stackTrace) => Center(
+                child: CustomErrorWidget(error: error, stackTrace: stackTrace),
+              ),
+              loading: () => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              data: (games) {
+                return ListView.builder(
+                  itemCount: games.length,
+                  itemBuilder: (context, index) {
+                    final game = games[index];
+                    final tile = GameTile(game: game);
+                    if (index == 0 ||
+                        !games[index - 1].date.isSameDayAs(game.date)) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _DateHeader(date: game.date),
+                          tile,
+                        ],
+                      );
+                    }
+                    return tile;
+                  },
+                );
+              },
             ),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            data: (games) {
-              return ListView.builder(
-                itemCount: games.length,
-                itemBuilder: (context, index) {
-                  final game = games[index];
-                  final tile = GameTile(game: game);
-                  if (index == 0 ||
-                      !games[index - 1].date.isSameDayAs(game.date)) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _DateHeader(date: game.date),
-                        tile,
-                      ],
-                    );
-                  }
-                  return tile;
-                },
-              );
-            },
-          ),
+      ),
       floatingActionButton: const _FAB(),
       bottomNavigationBar: const BottomNavigation(),
     );

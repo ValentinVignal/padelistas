@@ -8,6 +8,7 @@ import '../../services/auth_user_notifier.dart';
 import '../../services/info_plus.dart';
 import '../../utils/bool.dart';
 import '../../widgets/bottom_navigation.dart';
+import '../../widgets/rail.dart';
 import '../../widgets/theme_switch.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -33,42 +34,45 @@ class SettingsScreen extends ConsumerWidget {
         ),
         title: const Text('Settings'),
       ),
-      body: ListView(
-        children: [
-          if (!public && isLoggedIn)
-            ListTile(
-              leading: const Icon(Icons.person),
-              onTap: () => const MyAccountRoute().go(context),
-              title: const Text('My account'),
-              trailing: const Icon(Icons.chevron_right),
-            ),
-          const ListTile(
-            leading: Icon(Icons.contrast),
-            title: Text('Theme'),
-            trailing: ThemeSwitch(),
-          ),
-          AboutListTile(
-            icon: const Icon(Icons.info),
-            applicationVersion:
-                ref.watch(infoPlusProvider).valueOrNull?.version ?? '',
-          ),
-          if (isLoggedIn) ...[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-              child: Divider(),
-            ),
-            Center(
-              child: OutlinedButton.icon(
-                onPressed: () {
-                  FirebaseFirestore.instance.waitForPendingWrites();
-                  Auth.instance.signOut();
-                },
-                icon: const Icon(Icons.logout),
-                label: const Text('Logout'),
+      body: RailWrapper(
+        alwaysHide: public,
+        child: ListView(
+          children: [
+            if (!public && isLoggedIn)
+              ListTile(
+                leading: const Icon(Icons.person),
+                onTap: () => const MyAccountRoute().go(context),
+                title: const Text('My account'),
+                trailing: const Icon(Icons.chevron_right),
               ),
+            const ListTile(
+              leading: Icon(Icons.contrast),
+              title: Text('Theme'),
+              trailing: ThemeSwitch(),
             ),
+            AboutListTile(
+              icon: const Icon(Icons.info),
+              applicationVersion:
+                  ref.watch(infoPlusProvider).valueOrNull?.version ?? '',
+            ),
+            if (isLoggedIn) ...[
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+                child: Divider(),
+              ),
+              Center(
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    FirebaseFirestore.instance.waitForPendingWrites();
+                    Auth.instance.signOut();
+                  },
+                  icon: const Icon(Icons.logout),
+                  label: const Text('Logout'),
+                ),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
       bottomNavigationBar: (!public).nullIfFalse(const BottomNavigation()),
     );
