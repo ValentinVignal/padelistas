@@ -1,3 +1,8 @@
+## NEXT
+
+- Upgrades to Flutter 3.19.4.
+- Upgrades dependencies.
+
 ## 0.23.0 [2023-11-30]
 
 - Upgrades dependencies.
@@ -49,7 +54,7 @@
 - Adds environment and contribution documentation.
 - When modifying a game, keep the order of the players.
 
-## 0.15.0 [2023-10-24] 
+## 0.15.0 [2023-10-24]
 
 - Fixes the refresh and stays on the same URL.
 - Only allow the access to the user screen to the admin.
