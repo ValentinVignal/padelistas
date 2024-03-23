@@ -2,6 +2,7 @@
 
 - Upgrades to Flutter 3.19.4.
 - Upgrades dependencies.
+- Use `imperative_route_pages`.
 
 ## 0.23.0 [2023-11-30]
 

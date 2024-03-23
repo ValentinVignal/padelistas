@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:imperative_page_routes/imperative_page_routes.dart';
 
 import '../screens/games/filters/all_games_filter_provider.dart';
 import '../screens/games/filters/creator_filter_provider.dart';
@@ -20,7 +21,6 @@ import '../screens/verify_email/verify_email_screen.dart';
 import '../screens/waiting_for_approval/waiting_for_approval_screen.dart';
 import '../services/user_notifier.dart';
 import '../utils/value_notifier.dart' hide ValueNotifierExtension;
-import 'pages/bottom_sheet_page.dart';
 import 'redirect.dart';
 import 'route_parameters.dart';
 
